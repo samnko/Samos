@@ -1,0 +1,9 @@
+var array = ["Banana", "Apples", "Oranges", "Blueberries"];
+
+array.splice(0,1);
+array.sort();
+array.push("Kiwi");
+array.splice(0,1);
+array.reverse();
+
+console.log(array);
