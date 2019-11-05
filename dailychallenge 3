@@ -1,0 +1,10 @@
+
+const arr = [5,0,9,1,7,4,2,6,3,8];
+
+for (i = 0 ; i<arr.length; i ++){
+	console.log(arr.toString())
+	const sortDesc = (a, b) => b - a;
+	arr.sort(sortDesc);
+}
+
+console.log(arr)
