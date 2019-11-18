@@ -1,0 +1,86 @@
+var array = [
+  {
+    username: "john",
+    team: "red",
+    score: 5,
+    items: ["ball", "book", "pen"]
+  },
+  {
+    username: "becky",
+    team: "blue",
+    score: 10,
+    items: ["tape", "backpack", "pen"]
+  },
+  {
+    username: "susy",
+    team: "red",
+    score: 55,
+    items: ["ball", "eraser", "pen"]
+  },
+  {
+    username: "tyson",
+    team: "green",
+    score: 1,
+    items: ["book", "pen"]
+  },
+
+];
+
+
+
+const newArray = [];
+array.forEach ((i) => {
+    newArray.push (i.username +'!');
+});
+console.log ('forEach', newArray);
+
+
+const mapArray = array.map(i => {
+    return i.username + '?';
+ });
+ console.log('map2', mapArray);
+
+
+const filterArray = array.filter(i => {
+  return i.team == 'red' ;
+});
+
+console.log('filter',  filterArray);
+
+
+const total = array.reduce((score) => {
+  console.log(score);
+  return score;
+});
+console.log(total);
+
+const newArray = [];
+array.forEach ((i) => {
+    newArray.push (i.score );
+});
+
+console.log(
+  newArray.reduce((a, b) => a + b, 0)
+)
+
+
+(1), what is the value of i?
+(2), Make this map function pure:
+
+i = 2
+
+const newfonction = () => {
+const arrayNum = [1, 2, 4, 5, 8, 9];
+const newArray = arrayNum.map((num, i) => {
+	console.log(num, i);
+	alert(num);
+	return num * 3;
+})
+}
+
+console.log(newfonction());
+
+const mapArray = array.map(i => {
+    return i.items + '!';
+ });
+ console.log(mapArray);
