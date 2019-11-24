@@ -1,0 +1,46 @@
+
+// JS
+
+const validate = () =>{ 
+
+let username = document.getElementById('username');
+let lastname = document.getElementById('lastname');
+const a = JSON.stringify(username.value);
+const b = JSON.stringify(lastname.value);
+let id = document.getElementById('myID');
+
+if(username.value.trim() == '' || lastname.value.trim() ==''){
+	alert("please put username and password");
+	return false
+}else{
+	console.log(a);
+	console.log(b);
+}
+
+}
+
+
+// HTML
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+<script type="text/javascript" src="week5.js">
+	</script>
+
+	<form id='myID' action="https://tlvwebdev.com/form/getparams.html" method="POST"  > 
+	
+	USERNAME <input id='username' type="text" placeholder="SAMOS" name="username">
+	 
+	LASTNAME <input id='lastname' type="text" name="lastname"></input>  
+
+<!-- <input type="submit" name="">
+ -->	<button type="button" name="button" onclick="validate()">BUTTON</button>
+	<input type="reset" >
+</form>
+
+</head>
+<body>
+
