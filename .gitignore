@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.DS_Store
+# Source videos are heavy: keep them out of git, only the extracted frames ship.
+assets/videos/
