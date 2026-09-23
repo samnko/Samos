@@ -1,9 +1,9 @@
 {
-  "version": "1790174908",
-  "count": 600,
-  "fps": 20,
+  "version": "1790177094",
+  "count": 689,
+  "fps": 16,
   "pad": 4,
-  "desktop": { "path": "/frames/desktop", "width": 1920, "height": 1080 },
-  "mobile":  { "path": "/frames/mobile",  "width": 1080, "height": 1924 },
-  "scenes": [0,100,200,300,400,500]
+  "desktop": { "path": "/frames/desktop", "width": 1600, "height": 902 },
+  "mobile":  { "path": "/frames/mobile",  "width": 900, "height": 1604 },
+  "scenes": [0,81,193,305,417,545]
 }

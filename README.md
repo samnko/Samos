@@ -19,9 +19,9 @@ npm run build && npm start
 | `salomon.jpg`, `ethan.jpg` | `public/images/founders/` | rien, détectés au build |
 | Photos des biens | `public/images/listings/` | renseigner `image` dans `lib/listings.ts` |
 
-`npm run frames` concatène V1 → V6, extrait les WebP (desktop 1920 px q80, mobile 1080 px en recadrage portrait 9:16 q75), écrit `public/frames/manifest.json` (nombre de frames, index de début de chaque vidéo) et génère `public/og.jpg`. Réglages : `FPS=24 MAX_FRAMES=600 DESKTOP_Q=80 MOBILE_Q=75 npm run frames`. Au-delà de `MAX_FRAMES`, le fps baisse automatiquement.
+`npm run frames` concatène V1 → V6, extrait les WebP (desktop 1600 px q72, mobile 900 px en recadrage portrait 9:16 q68), écrit `public/frames/manifest.json` (nombre de frames, index de début de chaque vidéo) et génère `public/og.jpg`. Réglages : `FPS=16 MAX_FRAMES=900 DESKTOP_W=1600 DESKTOP_Q=72 MOBILE_W=900 MOBILE_Q=68 npm run frames`. Au-delà de `MAX_FRAMES`, le fps baisse automatiquement.
 
-Les frames actuellement dans `public/frames` sont des **placeholders** générés par `npm run frames:placeholder`.
+Les frames actuelles sont extraites des 6 plans drone réels : 689 frames à 16 fps (43 s), desktop 1600 px q72 (~74 Ko/frame, 50 Mo au total, chargés progressivement), mobile 900 px portrait q68 (~50 Ko/frame ; un téléphone n'en charge qu'une sur deux, soit ~17 Mo). Le script supprime la première image de chaque plan à partir de V2 (elle duplique la dernière du plan précédent).
 
 ## À compléter avant la mise en ligne
 

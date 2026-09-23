@@ -24,8 +24,22 @@ const SCENES = manifest.scenes;
 const pad = (n: number) => String(n).padStart(manifest.pad, "0");
 const frameUrl = (set: FrameSet, index: number) => `${set.path}/frame_${pad(index + 1)}.webp?v=${manifest.version}`;
 
-// Poster for reduced motion / no-JS: a frame from the founders' terrace scene.
-const POSTER_INDEX = Math.min(COUNT - 1, SCENES[4] + Math.round((COUNT - SCENES[4]) / 4));
+// Poster for reduced motion / no-JS: the founders on the terrace (start of V6).
+const POSTER_INDEX = Math.min(COUNT - 1, SCENES[5] + 12);
+
+/**
+ * When each caption shows, as fractions of its own clip (values > 1 run into the next clip).
+ * Tuned to the footage: the founders only appear in the last third of V5 and stay into V6,
+ * and the closing call to action waits for the drone to pull back.
+ */
+const CAPTION_TIMING: [number, number][] = [
+  [0, 0.4], // V1 aerial: visible from the start
+  [0.15, 0.78], // V2 approach to the tower
+  [0.15, 0.78], // V3 penthouse facade
+  [0.15, 0.78], // V4 living room
+  [0.55, 1.18], // V5 balcony → founders
+  [0.4, 1], // V6 pull-back: stays until the hero ends
+];
 
 /** Scroll length of the hero, in viewport heights. ~1 viewport per scene feels unhurried. */
 const SCROLL_VH = 620;
@@ -60,10 +74,11 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
     // ---- Pick the frame set ------------------------------------------------
     const portrait = window.innerHeight > window.innerWidth && window.innerWidth < 1024;
     const set: FrameSet = portrait ? manifest.mobile : manifest.desktop;
-    const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-    // On phones, every other frame is plenty (the scrub interpolates visually) and halves the payload.
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    // On phones, every other frame is plenty (the scrub smooths it out) and halves the payload.
     let stride = portrait && COUNT > 360 ? 2 : 1;
-    if (conn?.saveData) stride *= 2;
+    // Slow or data-saving connections: halve again (desktop included)
+    if (conn?.saveData || /(^|-)(2g|3g)$/.test(conn?.effectiveType ?? "")) stride *= 2;
 
     const images: (HTMLImageElement | undefined)[] = new Array(COUNT);
     const loaded = new Uint8Array(COUNT);
@@ -140,6 +155,7 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
         if (disposed) return;
         setPhase("leaving");
         finishLoading();
+        window.setTimeout(startBackground, 1200);
         ScrollTrigger.refresh();
         intro();
         window.setTimeout(() => !disposed && setPhase("done"), 1400);
@@ -178,12 +194,24 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
           .catch(() => (img.complete && img.naturalWidth ? done() : resolve()));
       });
 
-    const CONCURRENCY = 6;
+    // Blocking pass first; the background pass only starts once the page is revealed and idle,
+    // so it never competes with the first render.
     let cursor = 0;
-    const worker = async () => {
-      while (!disposed && cursor < queue.length) await loadFrame(queue[cursor++]);
+    const worker = async (limit: number) => {
+      while (!disposed && cursor < limit) await loadFrame(queue[cursor++]);
     };
-    for (let k = 0; k < CONCURRENCY; k++) worker();
+    const pool = (n: number, limit: number) => Promise.all(Array.from({ length: n }, () => worker(limit)));
+    let backgroundStarted = false;
+    const startBackground = () => {
+      if (backgroundStarted || disposed) return;
+      backgroundStarted = true;
+      const idle = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number })
+        .requestIdleCallback;
+      const go = () => pool(portrait ? 3 : 5, queue.length);
+      if (idle) idle(go, { timeout: 1500 });
+      else window.setTimeout(go, 300);
+    };
+    pool(6, phase1.length);
 
     // Safety net: never keep a visitor behind the preloader on a slow network.
     const safety = window.setTimeout(() => loaded[0] && reveal(), 9000);
@@ -227,17 +255,19 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
 
       scenes.forEach((el, i) => {
         const start = SCENES[i] ?? 0;
-        const end = SCENES[i + 1] ?? COUNT;
-        const len = end - start;
+        const len = (SCENES[i + 1] ?? COUNT) - start;
+        const nextLen = (SCENES[i + 2] ?? COUNT) - (SCENES[i + 1] ?? COUNT);
+        const [inAt, outAt] = CAPTION_TIMING[i] ?? [0.15, 0.78];
+        // Fractions above 1 are measured in the next clip's length
+        const at = (f: number) => (f <= 1 ? start + len * f : start + len + nextLen * (f - 1));
+        const fade = Math.min(len, 160) * 0.2;
         const inner = el.querySelectorAll("[data-line]");
-        if (i === 0) {
-          tl.to(el, { autoAlpha: 0, y: -40, duration: len * 0.3, ease: "power1.in" }, start + len * 0.35);
-          return;
+        if (i > 0) {
+          tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: fade, ease: "power1.out" }, at(inAt));
+          tl.fromTo(inner, { y: 48 }, { y: 0, stagger: fade * 0.15, duration: fade * 1.5, ease: "power2.out" }, at(inAt));
         }
-        tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: len * 0.2, ease: "power1.out" }, start + len * 0.12);
-        tl.fromTo(inner, { y: 48 }, { y: 0, stagger: len * 0.03, duration: len * 0.3, ease: "power2.out" }, start + len * 0.12);
         if (i < scenes.length - 1) {
-          tl.to(el, { autoAlpha: 0, y: -32, duration: len * 0.2, ease: "power1.in" }, start + len * 0.72);
+          tl.to(el, { autoAlpha: 0, y: i === 0 ? -40 : -32, duration: fade, ease: "power1.in" }, at(outAt));
         }
       });
 
@@ -332,10 +362,28 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
                   className={`hero-scene absolute inset-0 flex ${
                     centered
                       ? "flex-col items-center justify-center px-6 text-center"
-                      : "flex-col justify-end pb-[18vh] md:pb-[16vh]"
+                      : i === 4
+                        ? // Founders scene: on phones they fill the lower half, so the caption sits on top
+                          "flex-col justify-start pt-[15vh] md:justify-end md:pb-[16vh] md:pt-0"
+                        : "flex-col justify-end pb-[18vh] md:pb-[16vh]"
                   }`}
                 >
-                  <div className={centered ? "flex max-w-5xl flex-col items-center" : "container-luxe"}>
+                  {/* Per-caption scrim: follows the caption's fade, so bright shots stay legible */}
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-0 ${
+                      centered
+                        ? "bg-[radial-gradient(ellipse_60%_45%_at_center,rgb(14_24_32/0.55),transparent_75%)]"
+                        : i === 4
+                          ? "bg-gradient-to-b from-ink/60 via-transparent to-transparent md:bg-gradient-to-r md:via-ink/20 md:rtl:bg-gradient-to-l"
+                          : "bg-gradient-to-r from-ink/60 via-ink/20 to-transparent rtl:bg-gradient-to-l"
+                    }`}
+                  />
+                  <div
+                    className={`relative [text-shadow:0_2px_24px_rgb(14_24_32/0.45)] ${
+                      centered ? "flex max-w-5xl flex-col items-center" : "container-luxe"
+                    }`}
+                  >
                     <div className="overflow-hidden pb-1">
                       <p data-line className="eyebrow text-gold-soft">
                         {i > 0 && !last && <span className="tabular-nums" dir="ltr">0{i + 1} / 0{t.scenes.length}</span>}

@@ -7,7 +7,8 @@
 #                                  →  public/og.jpg (Open Graph image)
 #
 # Usage:   npm run frames
-# Tuning:  FPS=24 MAX_FRAMES=600 DESKTOP_Q=80 MOBILE_Q=75 npm run frames
+# Tuning:  FPS=16 MAX_FRAMES=900 DESKTOP_W=1600 DESKTOP_Q=72 MOBILE_W=900 MOBILE_Q=68 npm run frames
+# (defaults chosen for the real drone footage: ~75 KB/desktop frame, ~53 KB/mobile frame)
 #          SRC=path/to/videos npm run frames
 # ---------------------------------------------------------------------------
 set -euo pipefail
@@ -15,13 +16,13 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${SRC:-$ROOT/assets/videos}"
 OUT="$ROOT/public/frames"
-FPS="${FPS:-24}"
-MAX_FRAMES="${MAX_FRAMES:-600}"   # frame budget: above this, fps is lowered automatically
+FPS="${FPS:-16}"
+MAX_FRAMES="${MAX_FRAMES:-900}"   # frame budget: above this, fps is lowered automatically
 MIN_FPS="${MIN_FPS:-12}"
-DESKTOP_W="${DESKTOP_W:-1920}"
-MOBILE_W="${MOBILE_W:-1080}"
-DESKTOP_Q="${DESKTOP_Q:-80}"
-MOBILE_Q="${MOBILE_Q:-75}"
+DESKTOP_W="${DESKTOP_W:-1600}"
+MOBILE_W="${MOBILE_W:-900}"
+DESKTOP_Q="${DESKTOP_Q:-72}"
+MOBILE_Q="${MOBILE_Q:-68}"
 
 command -v ffmpeg  >/dev/null || { echo "✗ ffmpeg is not installed (brew install ffmpeg / apt install ffmpeg)"; exit 1; }
 command -v ffprobe >/dev/null || { echo "✗ ffprobe is not installed"; exit 1; }
@@ -56,8 +57,12 @@ ACC=0
 : > "$TMP/list.txt"
 for i in "${!CLIPS[@]}"; do
   n=$((i + 1))
+  # The clips are one continuous shot: clip N starts on clip N-1's last image, so drop that
+  # duplicate (otherwise the scroll "stalls" for one frame at every seam).
+  trim=""
+  (( i > 0 )) && trim=",trim=start_frame=1,setpts=PTS-STARTPTS"
   ffmpeg -v error -y -i "${CLIPS[$i]}" -an \
-    -vf "fps=${FPS},scale=${DESKTOP_W}:-2:flags=lanczos,format=yuv420p" \
+    -vf "fps=${FPS}${trim},scale=${DESKTOP_W}:-2:flags=lanczos,format=yuv420p" \
     -c:v libx264 -crf 12 -preset veryfast "$TMP/n$n.mp4"
   c=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 "$TMP/n$n.mp4")
   STARTS+=("$ACC")
@@ -79,7 +84,7 @@ ffmpeg -v error -y -i "$TMP/sequence.mp4" -vsync 0 \
   -c:v libwebp -quality "$DESKTOP_Q" -compression_level 6 -preset photo \
   "$OUT/desktop/frame_%04d.webp"
 
-# Mobile: centred portrait crop (9:16) then 1080px wide, so the canvas stays sharp
+# Mobile: centred portrait crop (9:16) then MOBILE_W wide, so the canvas stays sharp
 # on a portrait phone instead of upscaling a 16:9 frame ~3x.
 echo "→ Mobile frames (${MOBILE_W}px portrait crop, q${MOBILE_Q})…"
 ffmpeg -v error -y -i "$TMP/sequence.mp4" -vsync 0 \
@@ -96,8 +101,8 @@ dims() { ffprobe -v error -show_entries stream=width,height -of csv=p=0:s=x "$1"
 DDIM=$(dims "$OUT/desktop/frame_0001.webp")
 MDIM=$(dims "$OUT/mobile/frame_0001.webp")
 
-# --- 5. Open Graph image (1200×630) from the founders' terrace shot ----------
-OG_FRAME=$(( STARTS[4] + (TOTAL - STARTS[4]) / 4 + 1 ))
+# --- 5. Open Graph image (1200×630): the founders on the terrace, start of V6 --
+OG_FRAME=$(( STARTS[5] + 12 ))
 ffmpeg -v error -y -i "$OUT/desktop/$(printf 'frame_%04d.webp' "$OG_FRAME")" \
   -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630" -q:v 3 "$ROOT/public/og.jpg"
 
