@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Burger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0c09;
+    --ink: #f4efe8;
+    --muted: rgba(244, 239, 232, .55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body.loading { overflow: hidden; }
+
+  /* Preloader */
+  #preloader {
+    position: fixed; inset: 0; z-index: 10;
+    display: grid; place-items: center;
+    background: var(--bg);
+    transition: opacity .9s ease, visibility .9s;
+  }
+  #preloader.done { opacity: 0; visibility: hidden; }
+  #preloader span {
+    font-family: "Playfair Display", serif; font-style: italic;
+    font-size: 1.1rem; letter-spacing: .08em; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Scroll section */
+  .sequence { position: relative; height: 400vh; }
+  .stage {
+    position: sticky; top: 0;
+    height: 100vh; height: 100svh;
+    overflow: hidden;
+  }
+  canvas { display: block; width: 100%; height: 100%; }
+  /* Soft vignette blends the frame edges into the page background */
+  .stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, var(--bg) 100%);
+  }
+
+  .title {
+    position: absolute; z-index: 2; left: 0; right: 0; top: 4vh;
+    text-align: center;
+    font-family: "Playfair Display", serif; font-style: italic; font-weight: 400;
+    font-size: clamp(3rem, 9vw, 8.5rem); line-height: 1; letter-spacing: -.01em;
+    color: var(--ink);
+    text-shadow: 0 2px 40px rgba(0, 0, 0, .35);
+    opacity: 0;
+  }
+  .subtitle {
+    position: absolute; z-index: 2; left: 0; right: 0; top: 7vh;
+    text-align: center;
+    font-family: "Playfair Display", serif; font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.8rem); letter-spacing: .02em;
+    color: var(--ink); opacity: 0;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, .5);
+  }
+  .scroll-hint {
+    position: absolute; z-index: 2; left: 50%; bottom: 4vh; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .7rem;
+    font-size: .68rem; letter-spacing: .35em; text-transform: uppercase; color: var(--ink);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, .6);
+    opacity: 0;
+  }
+  .scroll-hint i {
+    width: 1px; height: 44px; background: rgba(244, 239, 232, .2);
+    position: relative; overflow: hidden;
+  }
+  .scroll-hint i::after {
+    content: ""; position: absolute; left: 0; top: -100%; width: 100%; height: 100%;
+    background: var(--ink); animation: drip 2s cubic-bezier(.65, 0, .35, 1) infinite;
+  }
+  @keyframes drip { to { top: 100%; } }
+
+  /* Landscape: the burger fills the centre, so the subtitle sits in the dark left area */
+  @media (min-aspect-ratio: 9/10) {
+    .subtitle {
+      top: 50%; left: 7vw; right: auto; max-width: 16ch;
+      text-align: left; margin-top: -1.2em;
+      font-size: clamp(1.4rem, 2.6vw, 2.4rem); line-height: 1.2;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) and (max-aspect-ratio: 9/10) {
+    .subtitle { top: calc(6vh + clamp(3rem, 9vw, 8.5rem)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sequence { height: auto; }
+    .stage { position: relative; }
+    .scroll-hint { display: none; }
+    .title, .subtitle { opacity: 1; }
+  }
+</style>
+</head>
+<body class="loading">
+
+<div id="preloader"><span id="pct">0%</span></div>
+
+<section class="sequence" id="sequence">
+  <div class="stage">
+    <canvas id="canvas" aria-label="Burger en vue éclatée"></canvas>
+    <h1 class="title" id="title">LE BURGER</h1>
+    <p class="subtitle" id="subtitle">Chaque ingrédient compte.</p>
+    <div class="scroll-hint" id="hint">Scroll<i></i></div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const FRAME_COUNT = 145;
+  const isMobile = Math.min(screen.width, screen.height) < 768;
+  const dir = isMobile ? "frames/mobile/" : "frames/";
+  const src = i => `${dir}frame_${String(i + 1).padStart(4, "0")}.webp`;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const pct = document.getElementById("pct");
+  const images = new Array(FRAME_COUNT);
+  const state = { frame: 0 };
+  let current = -1;
+
+  // Retina-sharp canvas
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(canvas.clientWidth * dpr);
+    canvas.height = Math.round(canvas.clientHeight * dpr);
+    ctx.imageSmoothingQuality = "high";
+    current = -1;
+    render();
+  }
+
+  // "cover" draw, no distortion; falls back to the nearest loaded frame
+  function render() {
+    let i = Math.round(state.frame);
+    let img = images[i];
+    for (let d = 1; (!img || !img.complete || !img.naturalWidth) && d < FRAME_COUNT; d++) {
+      img = images[i - d] || images[i + d];
+      if (img && !(img.complete && img.naturalWidth)) img = null;
+    }
+    if (!img || i === current) return;
+    current = i;
+    const cw = canvas.width, ch = canvas.height;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
+    const cover = Math.max(cw / iw, ch / ih);
+    ctx.filter = "none";
+    ctx.fillStyle = "#0f0c09";
+    ctx.fillRect(0, 0, cw, ch);
+    if (cw / ch >= 0.9) {
+      // Landscape: plain "cover"
+      ctx.drawImage(img, (cw - iw * cover) / 2, (ch - ih * cover) / 2, iw * cover, ih * cover);
+      return;
+    }
+    // Portrait: cover would crop the burger, so show it whole (burger ≈ 45% of frame width).
+    // Above and below, fill with the frame's own edge colours and feather the seams.
+    const s = Math.min(cover, (cw * 2) / iw);
+    const w = iw * s, h = ih * s, x = (cw - w) / 2, y = (ch - h) / 2;
+    const [top, bottom] = edges || (edges = sampleEdges(img));
+    ctx.fillStyle = top; ctx.fillRect(0, 0, cw, ch / 2);
+    ctx.fillStyle = bottom; ctx.fillRect(0, ch / 2, cw, ch / 2);
+    ctx.drawImage(img, x, y, w, h);
+    const f = h * 0.22;
+    feather(y, y + f, top);
+    feather(y + h, y + h - f, bottom);
+  }
+
+  let edges = null;
+  function sampleEdges(img) {
+    const c = document.createElement("canvas");
+    c.width = 1; c.height = 1;
+    const x = c.getContext("2d", { willReadFrequently: true });
+    // Average two side patches (left + right 12%), away from the burger and its reflection
+    const avg = (sy) => {
+      const iw = img.naturalWidth, sh = img.naturalHeight * 0.05, px = [];
+      for (const sx of [0, iw * 0.88]) {
+        x.drawImage(img, sx, sy, iw * 0.12, sh, 0, 0, 1, 1);
+        px.push(x.getImageData(0, 0, 1, 1).data);
+      }
+      const m = k => Math.round((px[0][k] + px[1][k]) / 2);
+      return `rgb(${m(0)},${m(1)},${m(2)})`;
+    };
+    return [avg(0), avg(img.naturalHeight * 0.95)];
+  }
+  // Gradient from solid colour at `from` to transparent at `to`
+  function feather(from, to, color) {
+    const g = ctx.createLinearGradient(0, from, 0, to);
+    g.addColorStop(0, color);
+    g.addColorStop(1, color.replace("rgb", "rgba").replace(")", ",0)"));
+    ctx.fillStyle = g;
+    ctx.fillRect(0, Math.min(from, to), canvas.width, Math.abs(to - from));
+  }
+
+  function load(i) {
+    return new Promise(res => {
+      const img = new Image();
+      img.decoding = "async";
+      img.onload = img.onerror = () => res(img);
+      img.src = src(i);
+      images[i] = img;
+    });
+  }
+
+  function reveal() {
+    document.body.classList.remove("loading");
+    document.getElementById("preloader").classList.add("done");
+  }
+
+  addEventListener("resize", resize);
+
+  // Reduced motion: a single still image, no scroll animation
+  if (reduced) {
+    state.frame = FRAME_COUNT - 1;
+    load(FRAME_COUNT - 1).then(() => { resize(); reveal(); });
+    return;
+  }
+
+  // First frame as soon as it's ready, then the rest
+  load(0).then(() => {
+    resize();
+    let loaded = 1;
+    const rest = [];
+    for (let i = 1; i < FRAME_COUNT; i++) {
+      rest.push(load(i).then(() => {
+        loaded++;
+        pct.textContent = Math.round(loaded / FRAME_COUNT * 100) + "%";
+      }));
+    }
+    Promise.all(rest).then(start);
+  });
+
+  function start() {
+    reveal();
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // Intro
+    gsap.to("#title", { opacity: 1, y: 0, duration: 1.6, ease: "power2.out", delay: .3, startAt: { y: 24 } });
+    gsap.to("#hint", { opacity: 1, duration: 1.2, delay: 1 });
+
+    // Frame scrub
+    gsap.to(state, {
+      frame: FRAME_COUNT - 1,
+      ease: "none",
+      onUpdate: render,
+      scrollTrigger: { trigger: "#sequence", start: "top top", end: "bottom bottom", scrub: .5 }
+    });
+
+    // Title + hint fade out as the animation starts
+    gsap.timeline({
+      scrollTrigger: { trigger: "#sequence", start: "top top", end: "12% top", scrub: true }
+    })
+      .fromTo("#title", { opacity: 1, y: 0 }, { opacity: 0, y: -40, ease: "none", immediateRender: false })
+      .fromTo("#hint", { opacity: 1 }, { opacity: 0, ease: "none", immediateRender: false }, 0);
+
+    // Subtitle at the end
+    gsap.fromTo("#subtitle", { opacity: 0, y: 16 }, {
+      opacity: 1, y: 0, ease: "none",
+      scrollTrigger: { trigger: "#sequence", start: "82% bottom", end: "96% bottom", scrub: true }
+    });
+  }
+})();
+</script>
+</body>
+</html>
