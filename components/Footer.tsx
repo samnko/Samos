@@ -17,7 +17,7 @@ export default function Footer({ lang, t, nav, logo }: Props) {
           </div>
 
           <nav aria-label={t.navigation} className="md:col-span-2 md:col-start-7">
-            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-gold rtl:tracking-normal">{t.navigation}</h2>
+            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-accent-soft rtl:tracking-normal">{t.navigation}</h2>
             <ul className="mt-6 space-y-3 text-ivory/75">
               {links.map((id) => (
                 <li key={id}>
@@ -30,7 +30,7 @@ export default function Footer({ lang, t, nav, logo }: Props) {
           </nav>
 
           <div className="md:col-span-2">
-            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-gold rtl:tracking-normal">{t.contact}</h2>
+            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-accent-soft rtl:tracking-normal">{t.contact}</h2>
             <ul className="mt-6 space-y-3 text-ivory/75" dir="ltr">
               <li className="rtl:text-right">
                 <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="link-line">
@@ -56,11 +56,11 @@ export default function Footer({ lang, t, nav, logo }: Props) {
           </div>
 
           <nav aria-label={t.languages} className="md:col-span-2">
-            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-gold rtl:tracking-normal">{t.languages}</h2>
+            <h2 className="text-[0.68rem] uppercase tracking-[0.3em] text-accent-soft rtl:tracking-normal">{t.languages}</h2>
             <ul className="mt-6 space-y-3 text-ivory/75">
               {locales.map((l) => (
                 <li key={l}>
-                  <a href={`/${l}`} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined} className="link-line aria-[current]:text-gold-soft">
+                  <a href={`/${l}`} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined} className="link-line aria-[current]:text-accent-soft">
                     {localeMeta[l].label}
                   </a>
                 </li>

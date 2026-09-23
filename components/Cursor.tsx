@@ -59,11 +59,11 @@ export default function Cursor() {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[200] hidden mix-blend-difference [@media(pointer:fine)]:block">
       <div ref={dot} className="absolute left-0 top-0 opacity-0 transition-opacity duration-300">
-        <span className="block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f7f3ec]" />
+        <span className="block h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f7f4ef]" />
       </div>
       <div ref={ring} className="group absolute left-0 top-0 opacity-0 transition-opacity duration-300">
-        <span className="flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f7f3ec]/70 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[state=hover]:h-14 group-data-[state=hover]:w-14 group-data-[state=label]:h-20 group-data-[state=label]:w-20 group-data-[state=label]:bg-[#f7f3ec]">
-          <span ref={label} className="text-[0.55rem] uppercase tracking-[0.2em] text-[#0e1820]" />
+        <span className="flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f7f4ef]/70 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[state=hover]:h-14 group-data-[state=hover]:w-14 group-data-[state=label]:h-20 group-data-[state=label]:w-20 group-data-[state=label]:bg-[#f7f4ef]">
+          <span ref={label} className="text-[0.55rem] uppercase tracking-[0.2em] text-[#0b1733]" />
         </span>
       </div>
     </div>

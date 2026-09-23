@@ -14,7 +14,7 @@ export default function Listings({ t, lang }: { t: Dictionary["listings"]; lang:
           {listings.map((item, i) => (
             <li key={item.id} data-reveal style={{ "--reveal-delay": (i % 3) * 120 } as React.CSSProperties}>
               <a href="#contact" data-cursor={t.cta} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#e0d6c4]">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#dfe2e8]">
                   {item.image ? (
                     <Image
                       src={item.image}
@@ -27,7 +27,7 @@ export default function Listings({ t, lang }: { t: Dictionary["listings"]; lang:
                     <div
                       role="img"
                       aria-label={`${item.title[lang]}, ${item.neighborhood[lang]}. ${t.photoSoon}`}
-                      className="absolute inset-0 flex items-end justify-center bg-[linear-gradient(160deg,#e9e0cf_0%,#d9ccb4_55%,#c9b89a_100%)] transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                      className="absolute inset-0 flex items-end justify-center bg-[linear-gradient(160deg,#eceef2_0%,#d9dde6_55%,#c3cad8_100%)] transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                     >
                       {/* Architectural line drawing as a tasteful stand-in */}
                       <svg viewBox="0 0 200 250" className="absolute inset-0 h-full w-full text-ink/10" fill="none" stroke="currentColor" strokeWidth="0.6" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
@@ -55,8 +55,8 @@ export default function Listings({ t, lang }: { t: Dictionary["listings"]; lang:
                 </div>
                 <div className="mt-6 flex items-start justify-between gap-6">
                   <div>
-                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-gold-deep rtl:tracking-normal">{item.neighborhood[lang]}</p>
-                    <h3 className="mt-2 font-serif text-[1.7rem] leading-tight transition-colors duration-500 group-hover:text-gold-deep">
+                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-accent-deep rtl:tracking-normal">{item.neighborhood[lang]}</p>
+                    <h3 className="mt-2 font-serif text-[1.7rem] leading-tight transition-colors duration-500 group-hover:text-accent-deep">
                       {item.title[lang]}
                     </h3>
                   </div>

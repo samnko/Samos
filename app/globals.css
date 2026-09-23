@@ -2,21 +2,23 @@
 @import "lenis/dist/lenis.css";
 
 /* ---------------------------------------------------------------------------
-   Cohen Real Estate: design tokens
-   The palette is a provisional "ink & champagne" scheme. Once assets/logo.png
-   is added, run `npm run palette` and adjust the four brand values below.
+   Cohen Real Estate: design tokens, built from the logo (assets/logo.png):
+   navy #213A76 (the lettering) and red #F5352A (the roof).
+   The navy is deepened for large dark surfaces; the red stays an accent, used
+   sparingly, with a deeper shade wherever it carries small text (WCAG AA).
 --------------------------------------------------------------------------- */
 @theme {
-  --color-ink: #0e1820;
-  --color-ink-2: #15232d;
-  --color-ink-3: #1f303b;
-  --color-gold: #c4a36b; /* on dark backgrounds */
-  --color-gold-deep: #85652f; /* gold text on light backgrounds (AA contrast) */
-  --color-gold-soft: #e3d2ad;
-  --color-ivory: #f7f3ec;
-  --color-sand: #ede6d9;
-  --color-stone: #625e57;
-  --color-mist: #a9b1b6;
+  --color-navy: #213a76; /* logo navy: headings on light backgrounds */
+  --color-ink: #0b1733; /* deep navy: dark sections, body text */
+  --color-ink-2: #0e1c3e;
+  --color-ink-3: #16264f;
+  --color-accent: #f5352a; /* logo red: lines, details, accents on dark (4.6:1 on ink) */
+  --color-accent-deep: #c8281e; /* red text on light / button fill behind white text (5.4:1+) */
+  --color-accent-soft: #ff8a7f; /* small red text on dark and on video (7.8:1 on ink) */
+  --color-ivory: #f7f4ef;
+  --color-sand: #ebe9e4;
+  --color-stone: #5e6475; /* muted text on ivory (5.4:1) */
+  --color-mist: #a9b1c2;
 
   --font-serif: var(--font-display), "Cormorant Garamond", Georgia, serif;
   --font-sans: var(--font-body), "Jost", system-ui, sans-serif;
@@ -61,12 +63,12 @@ body {
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: var(--color-navy);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 1.5px solid var(--color-gold);
+  outline: 1.5px solid var(--color-accent);
   outline-offset: 4px;
   border-radius: 2px;
 }
@@ -161,16 +163,19 @@ html[lang="he"] .btn {
   font-size: 0.9rem;
 }
 
-.btn-gold {
-  background: var(--color-gold);
-  color: var(--color-ink);
+.btn-accent {
+  background: var(--color-accent-deep);
+  color: #fff;
 }
-.btn-gold::after {
+.btn-accent::after {
   background: var(--color-ivory);
+}
+.btn-accent:hover {
+  color: var(--color-ink);
 }
 
 .btn-ghost-light {
-  border: 1px solid rgb(247 243 236 / 0.45);
+  border: 1px solid rgb(247 244 239 / 0.45);
   color: var(--color-ivory);
 }
 .btn-ghost-light::after {
@@ -186,10 +191,10 @@ html[lang="he"] .btn {
   color: var(--color-ivory);
 }
 .btn-ink::after {
-  background: var(--color-gold);
+  background: var(--color-accent-deep);
 }
 .btn-ink:hover {
-  color: var(--color-ink);
+  color: #fff;
 }
 
 /* Underline that draws itself on hover */

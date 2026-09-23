@@ -21,7 +21,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <HeroScroll
         t={t.hero}
         preloaderLabel={t.preloader.label}
-        logo={<Logo size="lg" className="text-ivory" />}
+        logo={<Logo onDark size="lg" />}
         whatsappHref={whatsappLink(t.contact.whatsappMessage)}
       />
       <Services t={t.services} />

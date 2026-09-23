@@ -7,6 +7,7 @@ import manifest from "@/public/frames/manifest.json";
 import { getLenis, scrollToTarget } from "@/lib/lenis";
 import type { Dictionary } from "@/lib/i18n/fr";
 import Preloader from "./Preloader";
+import Logo from "../Logo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -282,9 +283,15 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
     const intro = () => {
       gsap.fromTo(stageRef.current, { scale: 1.08 }, { scale: 1, duration: 2.4, ease: "expo.out" });
       gsap.fromTo(
-        section.querySelectorAll("[data-scene='0'] [data-line]"),
+        section.querySelectorAll("[data-scene='0'] [data-line]:not(h1)"),
         { yPercent: 110 },
         { yPercent: 0, duration: 1.6, stagger: 0.12, ease: "expo.out", delay: 0.15 },
+      );
+      // The logo is never hidden (it is the page's largest paint): it settles from a slight zoom instead
+      gsap.fromTo(
+        section.querySelector("[data-scene='0'] h1"),
+        { scale: 1.08 },
+        { scale: 1, duration: 2.2, ease: "expo.out" },
       );
     };
 
@@ -345,7 +352,7 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
           <div aria-hidden="true" className="pointer-events-none absolute inset-0">
             <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-ink/60 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-ink/80 via-ink/30 to-transparent" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgb(14_24_32/0.45)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgb(11_23_51/0.45)_100%)]" />
           </div>
 
           {/* ---- Scene texts ---- */}
@@ -373,37 +380,40 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
                     aria-hidden="true"
                     className={`absolute inset-0 ${
                       centered
-                        ? "bg-[radial-gradient(ellipse_60%_45%_at_center,rgb(14_24_32/0.55),transparent_75%)]"
+                        ? "bg-[radial-gradient(ellipse_60%_45%_at_center,rgb(11_23_51/0.55),transparent_75%)]"
                         : i === 4
                           ? "bg-gradient-to-b from-ink/60 via-transparent to-transparent md:bg-gradient-to-r md:via-ink/20 md:rtl:bg-gradient-to-l"
                           : "bg-gradient-to-r from-ink/60 via-ink/20 to-transparent rtl:bg-gradient-to-l"
                     }`}
                   />
                   <div
-                    className={`relative [text-shadow:0_2px_24px_rgb(14_24_32/0.45)] ${
+                    className={`relative [text-shadow:0_2px_24px_rgb(11_23_51/0.45)] ${
                       centered ? "flex max-w-5xl flex-col items-center" : "container-luxe"
                     }`}
                   >
                     <div className="overflow-hidden pb-1">
-                      <p data-line className="eyebrow text-gold-soft">
+                      <p data-line className="eyebrow text-accent-soft">
                         {i > 0 && !last && <span className="tabular-nums" dir="ltr">0{i + 1} / 0{t.scenes.length}</span>}
                         {(i === 0 || last) && scene.eyebrow}
                         {i > 0 && !last && <span className="opacity-80">{scene.eyebrow}</span>}
                       </p>
                     </div>
                     <div className="overflow-hidden pb-2">
-                      <h2
-                        data-line
-                        className={`display mt-5 text-balance ${
-                          i === 0
-                            ? "text-[clamp(3.1rem,11vw,10rem)] leading-[0.92]"
-                            : last
-                              ? "text-[clamp(2.6rem,7.5vw,7rem)]"
-                              : "max-w-4xl text-[clamp(2.3rem,6.2vw,6rem)]"
-                        }`}
-                      >
-                        {i === 0 ? <span className="block">{scene.title}</span> : scene.title}
-                      </h2>
+                      {i === 0 ? (
+                        // Opening scene: the brand itself, as the page's h1
+                        <h1 data-line className="mt-6">
+                          <Logo onDark priority alt={scene.title} className="!h-[clamp(5.5rem,17vw,12.5rem)] drop-shadow-[0_4px_40px_rgb(11_23_51/0.5)]" />
+                        </h1>
+                      ) : (
+                        <h2
+                          data-line
+                          className={`display mt-5 text-balance ${
+                            last ? "text-[clamp(2.6rem,7.5vw,7rem)]" : "max-w-4xl text-[clamp(2.3rem,6.2vw,6rem)]"
+                          }`}
+                        >
+                          {scene.title}
+                        </h2>
+                      )}
                     </div>
                     {scene.text && (
                       <div className="overflow-hidden">
@@ -414,7 +424,7 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
                     )}
                     {(last || reduced) && (
                       <div data-line className="pointer-events-auto mt-10 flex flex-wrap items-center justify-center gap-4">
-                        <a href="#contact" onClick={goContact} className="btn btn-gold" data-cursor={t.cta}>
+                        <a href="#contact" onClick={goContact} className="btn btn-accent" data-cursor={t.cta}>
                           {t.cta}
                         </a>
                         <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light">
@@ -435,9 +445,9 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
                 data-scroll-cue
                 className="pointer-events-none absolute inset-x-0 bottom-8 flex flex-col items-center gap-3 text-ivory/80"
               >
-                <span className="text-[0.65rem] uppercase tracking-[0.4em]">{t.scroll}</span>
+                <span className="text-[0.65rem] uppercase tracking-[0.4em] rtl:text-xs rtl:tracking-normal">{t.scroll}</span>
                 <span className="relative block h-14 w-px overflow-hidden bg-ivory/20">
-                  <span className="scroll-cue-line absolute inset-0 bg-gold" />
+                  <span className="scroll-cue-line absolute inset-0 bg-accent" />
                 </span>
               </div>
 
@@ -445,13 +455,13 @@ export default function HeroScroll({ t, preloaderLabel, logo, whatsappHref }: Pr
               <div className="pointer-events-none absolute end-6 top-1/2 hidden -translate-y-1/2 items-stretch gap-4 md:flex lg:end-10">
                 <ol ref={railRef} className="flex flex-col justify-between py-1 text-[0.65rem] tabular-nums text-ivory/40" dir="ltr">
                   {t.scenes.map((_, i) => (
-                    <li key={i} className="transition-colors duration-700 data-[active]:text-gold-soft">
+                    <li key={i} className="transition-colors duration-700 data-[active]:text-accent-soft">
                       0{i + 1}
                     </li>
                   ))}
                 </ol>
                 <span className="relative block h-56 w-px bg-ivory/15">
-                  <span data-rail-fill className="absolute inset-0 origin-top bg-gold" />
+                  <span data-rail-fill className="absolute inset-0 origin-top bg-accent" />
                 </span>
               </div>
             </>

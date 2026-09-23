@@ -6,7 +6,7 @@ export default function WhatsAppFab({ href, label }: { href: string; label: stri
       rel="noopener noreferrer"
       aria-label={label}
       data-cursor="WhatsApp"
-      className="group fixed bottom-5 end-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#1f8f5f] text-white shadow-[0_18px_40px_-12px_rgba(14,24,32,0.55)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 md:bottom-8 md:end-8 md:h-16 md:w-16"
+      className="group fixed bottom-5 end-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#1f8f5f] text-white shadow-[0_18px_40px_-12px_rgba(11,23,51,0.55)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 md:bottom-8 md:end-8 md:h-16 md:w-16"
     >
       <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-[#1f8f5f] opacity-20 [animation-duration:2.8s]" />
       <WhatsAppIcon className="relative h-7 w-7 md:h-8 md:w-8" />

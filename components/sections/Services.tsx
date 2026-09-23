@@ -37,11 +37,11 @@ export default function Services({ t }: { t: Dictionary["services"] }) {
               style={{ "--reveal-delay": i * 140 } as React.CSSProperties}
               className="group relative flex flex-col bg-ivory p-8 transition-colors duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-ink hover:text-ivory md:p-10 lg:p-12"
             >
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 rtl:origin-right" />
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 rtl:origin-right" />
               <div className="flex items-start justify-between">
                 <svg
                   viewBox="0 0 48 48"
-                  className="h-12 w-12 text-gold-deep transition-colors duration-700 group-hover:text-gold"
+                  className="h-12 w-12 text-accent-deep transition-colors duration-700 group-hover:text-accent"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1"
@@ -54,13 +54,13 @@ export default function Services({ t }: { t: Dictionary["services"] }) {
                 </span>
               </div>
               <h3 className="display mt-14 text-[2.6rem] md:text-5xl">{item.title}</h3>
-              <p className="mt-3 font-serif text-xl italic text-stone transition-colors duration-700 group-hover:text-gold-soft">
+              <p className="mt-3 font-serif text-xl italic text-stone transition-colors duration-700 group-hover:text-accent-soft">
                 {item.lead}
               </p>
               <ul className="mt-10 space-y-4 border-t border-current/10 pt-8 text-[0.98rem] leading-relaxed">
                 {item.points.map((p) => (
                   <li key={p} className="flex gap-4">
-                    <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-gold" />
+                    <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" />
                     <span className="opacity-85">{p}</span>
                   </li>
                 ))}

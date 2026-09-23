@@ -29,26 +29,26 @@ export default function Founders({ t }: { t: Dictionary["founders"] }) {
                       alt={person.alt}
                       fill
                       sizes="(min-width: 768px) 45vw, 100vw"
-                      className="object-cover grayscale-[70%] transition-[filter,transform] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
+                      className="object-cover object-[50%_25%] grayscale-[70%] transition-[filter,transform] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] group-hover:grayscale-0"
                     />
                   ) : (
                     <div
                       role="img"
                       aria-label={`${person.alt}. ${t.photoSoon}`}
-                      className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-sand to-[#e2d8c6] transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-sand to-[#d9dde6] transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                     >
-                      <span className="font-serif text-[7rem] font-light leading-none text-gold-deep/50" dir="ltr">
+                      <span className="font-serif text-[7rem] font-light leading-none text-accent-deep/50" dir="ltr">
                         {initials}
                       </span>
                       <span className="mt-6 text-[0.65rem] uppercase tracking-[0.35em] text-stone">{t.photoSoon}</span>
                     </div>
                   )}
                   <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-                  <span aria-hidden="true" className="absolute bottom-6 start-6 h-px w-0 bg-gold transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-24" />
+                  <span aria-hidden="true" className="absolute bottom-6 start-6 h-px w-0 bg-accent transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-24" />
                 </div>
                 <div data-reveal className="mt-8 grid gap-4 md:grid-cols-[1fr_auto]">
                   <div>
-                    <p className="eyebrow text-gold-deep">{person.role}</p>
+                    <p className="eyebrow text-accent-deep">{person.role}</p>
                     <h3 className="display mt-3 text-4xl md:text-5xl">{person.name}</h3>
                   </div>
                   <p className="leading-relaxed text-stone md:col-span-2 md:max-w-md">{person.bio}</p>

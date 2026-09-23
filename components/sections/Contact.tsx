@@ -14,10 +14,10 @@ export default function Contact({ t, lang }: { t: Dictionary["contact"]; lang: L
 
   return (
     <section id="contact" data-tone="dark" aria-labelledby="contact-title" className="grain relative overflow-hidden bg-ink py-28 text-ivory md:py-40">
-      <div aria-hidden="true" className="pointer-events-none absolute -start-40 bottom-0 h-[30rem] w-[30rem] rounded-full bg-gold/10 blur-[120px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -start-40 bottom-0 h-[30rem] w-[30rem] rounded-full bg-navy/40 blur-[120px]" />
       <div className="container-luxe relative grid gap-20 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <p data-reveal className="eyebrow text-gold">
+          <p data-reveal className="eyebrow text-accent">
             {t.eyebrow}
           </p>
           <h2 id="contact-title" data-reveal style={{ "--reveal-delay": 120 } as React.CSSProperties} className="display mt-6 text-balance text-[clamp(2.6rem,5.6vw,5rem)]">

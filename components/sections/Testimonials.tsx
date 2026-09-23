@@ -22,7 +22,7 @@ export default function Testimonials({ t }: { t: Dictionary["testimonials"] }) {
               style={{ "--reveal-delay": i * 140 } as React.CSSProperties}
               className="flex flex-col border border-dashed border-ink/20 p-8 md:p-10"
             >
-              <span aria-hidden="true" className="font-serif text-7xl leading-none text-gold">
+              <span aria-hidden="true" className="font-serif text-7xl leading-none text-accent">
                 &ldquo;
               </span>
               <blockquote className="mt-2 flex-1 font-serif text-2xl italic leading-snug text-ink/50">{item.quote}</blockquote>

@@ -36,7 +36,9 @@ Les frames actuelles sont extraites des 6 plans drone réels : 689 frames à 16 
 - `components/hero/HeroScroll.tsx` : canvas sticky, préchargement progressif, scrub GSAP, textes par scène
 - `components/sections/*` : Services, Pourquoi nous, Fondateurs, Biens, Témoignages, Contact
 - `lib/i18n/{fr,he,en}.ts` : tous les textes
-- `app/globals.css` : tokens de design (couleurs, typo, boutons)
+- `app/globals.css` : tokens de design (couleurs, typo, boutons). Palette tirée du logo : bleu marine `#213A76`, rouge `#F5352A` (rouge approfondi `#C8281E` pour les petits textes et les boutons, afin de respecter le contraste AA), marine profond `#0B1733` pour les fonds sombres.
+- `public/logo.png` / `public/logo-on-dark.png` : logo original et version inversée (lettres ivoire) pour les fonds sombres
+- `public/images/founders/{salomon,ethan}.jpg` : portraits des fondateurs
 
 ## Déploiement
 

@@ -24,7 +24,7 @@ export default async function Legal({ params }: PageProps<"/[lang]/mentions-lega
   return (
     <main id="main" className="bg-ivory pb-32 pt-44">
       <div className="container-luxe max-w-4xl">
-        <p className="eyebrow text-gold-deep">Cohen Real Estate</p>
+        <p className="eyebrow text-accent-deep">Cohen Real Estate</p>
         <h1 className="display mt-6 text-[clamp(2.8rem,6vw,5rem)]">{t.legal.title}</h1>
         <div className="mt-16 divide-y divide-ink/10 border-y border-ink/10">
           {t.legal.sections.map((s) => (

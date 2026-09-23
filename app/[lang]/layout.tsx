@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { preload } from "react-dom";
 import { Cormorant_Garamond, Jost, Frank_Ruhl_Libre, Heebo } from "next/font/google";
 import "../globals.css";
 import { isLocale, localeMeta, locales } from "@/lib/i18n/config";
@@ -30,7 +31,7 @@ export const dynamicParams = false;
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
 
 export const viewport: Viewport = {
-  themeColor: "#0e1820",
+  themeColor: "#0b1733",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -71,6 +72,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const t = await getDictionary(lang);
+  // The reversed logo is the first thing on screen (hero title, header over the video)
+  preload("/logo-on-dark.png", { as: "image", fetchPriority: "high" });
   const fonts = [cormorant.variable, jost.variable, lang === "he" ? `${frank.variable} ${heebo.variable}` : ""].join(" ");
 
   return (
@@ -94,9 +97,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <SmoothScroll />
         <Reveal />
         <Cursor />
-        <Header lang={lang} t={t.nav} logo={<Logo />} />
+        <Header lang={lang} t={t.nav} logo={<Logo alt="" />} logoOnDark={<Logo onDark alt="" />} />
         {children}
-        <Footer lang={lang} t={t.footer} nav={t.nav} logo={<Logo size="lg" />} />
+        <Footer lang={lang} t={t.footer} nav={t.nav} logo={<Logo onDark size="lg" />} />
         <WhatsAppFab href={whatsappLink(t.contact.whatsappMessage)} label={t.ui.whatsappFab} />
       </body>
     </html>

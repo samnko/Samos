@@ -7,12 +7,12 @@ import { locales, localeMeta, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/fr";
 import { getLenis, scrollToTarget } from "@/lib/lenis";
 
-type Props = { lang: Locale; t: Dictionary["nav"]; logo: ReactNode };
+type Props = { lang: Locale; t: Dictionary["nav"]; logo: ReactNode; logoOnDark: ReactNode };
 type Mode = "top" | "dark" | "light";
 
 const SECTIONS = ["services", "why", "founders", "listings", "contact"] as const;
 
-export default function Header({ lang, t, logo }: Props) {
+export default function Header({ lang, t, logo, logoOnDark }: Props) {
   const pathname = usePathname();
   const [mode, setMode] = useState<Mode>("top");
   const [open, setOpen] = useState(false);
@@ -71,7 +71,7 @@ export default function Header({ lang, t, logo }: Props) {
     <>
       <a
         href="#main"
-        className="fixed start-4 top-4 z-[120] -translate-y-24 bg-gold px-4 py-2 text-sm text-ink focus:translate-y-0"
+        className="fixed start-4 top-4 z-[120] -translate-y-24 bg-accent px-4 py-2 text-sm text-ink focus:translate-y-0"
       >
         {t.skip}
       </a>
@@ -82,8 +82,22 @@ export default function Header({ lang, t, logo }: Props) {
         }`}
       >
         <div className="container-luxe flex h-[var(--header-h)] items-center justify-between gap-6">
-          <Link href={`/${lang}`} onClick={go("top")} aria-label={t.home} className="relative z-10">
-            {logo}
+          <Link
+            href={`/${lang}`}
+            onClick={go("top")}
+            aria-label={t.home}
+            // On top of the hero the big logo is already on screen: the header one waits for the scroll
+            className={`relative z-10 grid transition-opacity duration-700 [&>*]:col-start-1 [&>*]:row-start-1 ${
+              mode === "top" && !open ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            {/* Both versions are stacked and cross-faded with the header's tone */}
+            <span aria-hidden="true" className={`transition-opacity duration-700 ${light && !open ? "opacity-0" : "opacity-100"}`}>
+              {logoOnDark}
+            </span>
+            <span aria-hidden="true" className={`transition-opacity duration-700 ${light && !open ? "opacity-100" : "opacity-0"}`}>
+              {logo}
+            </span>
           </Link>
 
           <nav aria-label="Principal" className="hidden lg:block">
@@ -144,7 +158,7 @@ export default function Header({ lang, t, logo }: Props) {
                     transitionDelay: open ? `${200 + i * 60}ms` : "0ms",
                   }}
                 >
-                  <span className="me-4 align-top font-sans text-xs tracking-[0.3em] text-gold" dir="ltr">
+                  <span className="me-4 align-top font-sans text-xs tracking-[0.3em] text-accent" dir="ltr">
                     0{i + 1}
                   </span>
                   {t[id]}

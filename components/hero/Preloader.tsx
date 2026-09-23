@@ -22,7 +22,7 @@ export default function Preloader({ ref, leaving, label, logo }: Props) {
       >
         {logo}
         <div className="mt-12 h-px w-48 overflow-hidden bg-ivory/15 sm:w-64">
-          <div className="h-full origin-left scale-x-[var(--progress)] bg-gold transition-transform duration-500 ease-out rtl:origin-right" />
+          <div className="h-full origin-left scale-x-[var(--progress)] bg-accent transition-transform duration-500 ease-out rtl:origin-right" />
         </div>
         <div className="mt-5 flex w-48 items-center justify-between text-[0.62rem] uppercase tracking-[0.3em] text-ivory/55 sm:w-64">
           <span>{label}</span>

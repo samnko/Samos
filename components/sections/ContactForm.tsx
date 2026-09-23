@@ -54,9 +54,9 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
   };
 
   const field =
-    "peer w-full border-0 border-b border-ivory/25 bg-transparent px-0 pb-3 pt-7 text-lg text-ivory placeholder-transparent transition-colors focus:border-gold focus:outline-none focus:ring-0";
+    "peer w-full border-0 border-b border-ivory/25 bg-transparent px-0 pb-3 pt-7 text-lg text-ivory placeholder-transparent transition-colors focus:border-accent focus:outline-none focus:ring-0";
   const label =
-    "pointer-events-none absolute start-0 top-7 origin-[0] text-sm text-ivory/60 transition-all duration-300 peer-focus:top-0 peer-focus:text-xs peer-focus:text-gold peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs rtl:origin-[100%]";
+    "pointer-events-none absolute start-0 top-7 origin-[0] text-sm text-ivory/60 transition-all duration-300 peer-focus:top-0 peer-focus:text-xs peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs rtl:origin-[100%]";
 
   return (
     <form onSubmit={onSubmit} className="grid gap-x-10 gap-y-8 sm:grid-cols-2" noValidate={false}>
@@ -89,7 +89,7 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
             <label
               key={key}
               className={`relative flex min-h-12 items-center justify-center border-ivory/20 px-2 text-center text-[0.75rem] uppercase tracking-[0.18em] transition-colors duration-500 rtl:tracking-normal [&:not(:first-child)]:border-s ${
-                type === key ? "bg-gold text-ink" : "text-ivory/80 hover:bg-ivory/5"
+                type === key ? "bg-accent text-ink" : "text-ivory/80 hover:bg-ivory/5"
               }`}
             >
               <input
@@ -114,7 +114,7 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
           id="cf-budget"
           name="budget"
           defaultValue=""
-          className="mt-2 w-full appearance-none border-0 border-b border-ivory/25 bg-transparent px-0 pb-3 pt-2 text-lg text-ivory focus:border-gold focus:outline-none focus:ring-0 [&>option]:bg-ink"
+          className="mt-2 w-full appearance-none border-0 border-b border-ivory/25 bg-transparent px-0 pb-3 pt-2 text-lg text-ivory focus:border-accent focus:outline-none focus:ring-0 [&>option]:bg-ink"
         >
           <option value="">{t.budgetPlaceholder}</option>
           {t.budgets.map((b) => (
@@ -137,7 +137,7 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
 
       <div className="flex flex-col gap-5 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-sm text-xs leading-relaxed text-ivory/50">{t.consent}</p>
-        <button type="submit" disabled={status === "sending"} className="btn btn-gold shrink-0 disabled:opacity-60">
+        <button type="submit" disabled={status === "sending"} className="btn btn-accent shrink-0 disabled:opacity-60">
           {status === "sending" ? t.sending : t.submit}
           <svg viewBox="0 0 24 24" className="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
             <path d="M4 12 H20 M14 6 L20 12 L14 18" />
@@ -145,7 +145,7 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
         </button>
       </div>
 
-      <p role="status" aria-live="polite" className="text-sm text-gold-soft sm:col-span-2">
+      <p role="status" aria-live="polite" className="text-sm text-accent-soft sm:col-span-2">
         {status === "success" && t.success}
         {status === "fallback" && (
           <a href={fallbackHref} target="_blank" rel="noopener noreferrer" className="link-line">

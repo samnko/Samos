@@ -12,10 +12,10 @@ export default function SectionHeading({ eyebrow, title, intro, tone = "light", 
   if (align === "center") {
     return (
       <header className="mx-auto max-w-3xl text-center">
-        <p data-reveal className={`eyebrow ${dark ? "text-gold" : "text-gold-deep"}`}>
+        <p data-reveal className={`eyebrow ${dark ? "text-accent" : "text-accent-deep"}`}>
           {eyebrow}
         </p>
-        <h2 id={id} data-reveal style={{ "--reveal-delay": 120 } as React.CSSProperties} className="display mt-6 text-balance text-[clamp(2.4rem,5.4vw,4.75rem)]">
+        <h2 id={id} data-reveal style={{ "--reveal-delay": 120 } as React.CSSProperties} className={`display mt-6 text-balance text-[clamp(2.4rem,5.4vw,4.75rem)] ${dark ? "" : "text-navy"}`}>
           {title}
         </h2>
         {intro && (
@@ -29,10 +29,10 @@ export default function SectionHeading({ eyebrow, title, intro, tone = "light", 
   return (
     <header className="grid gap-8 md:grid-cols-12 md:items-end">
       <div className="md:col-span-7">
-        <p data-reveal className={`eyebrow ${dark ? "text-gold" : "text-gold-deep"}`}>
+        <p data-reveal className={`eyebrow ${dark ? "text-accent" : "text-accent-deep"}`}>
           {eyebrow}
         </p>
-        <h2 id={id} data-reveal style={{ "--reveal-delay": 120 } as React.CSSProperties} className="display mt-6 text-balance text-[clamp(2.4rem,5.4vw,4.75rem)]">
+        <h2 id={id} data-reveal style={{ "--reveal-delay": 120 } as React.CSSProperties} className={`display mt-6 text-balance text-[clamp(2.4rem,5.4vw,4.75rem)] ${dark ? "" : "text-navy"}`}>
           {title}
         </h2>
       </div>
