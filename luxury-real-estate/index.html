@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurelian Estates — Extraordinary Homes</title>
+  <meta name="description" content="Aurelian Estates curates the world's most exceptional private residences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0b0c;
+      --bg-2: #121214;
+      --bg-3: #1a1a1d;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #ece8e1;
+      --muted: #8f8a82;
+      --gold: #c9a96e;
+      --gold-soft: #e3cfa3;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Manrope", system-ui, -apple-system, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --gutter: clamp(16px, 5vw, 72px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--gold); color: var(--bg); }
+
+    .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+    .eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; display: inline-flex; align-items: center; gap: 14px;
+    }
+    .eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--gold); }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 300; line-height: 1.08; letter-spacing: -0.01em; }
+    h2 { font-size: clamp(2.4rem, 5vw, 4.2rem); margin: 18px 0 24px; }
+    h2 em, h1 em { font-style: italic; color: var(--gold-soft); }
+    .lead { color: var(--muted); max-width: 520px; font-size: 1.02rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 34px; border: 1px solid var(--gold); color: var(--text);
+      font-size: 0.74rem; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
+      position: relative; overflow: hidden; isolation: isolate; cursor: pointer; background: none;
+      font-family: var(--sans); transition: color 0.5s var(--ease);
+    }
+    .btn::before {
+      content: ""; position: absolute; inset: 0; background: var(--gold); z-index: -1;
+      transform: scaleX(0); transform-origin: right; transition: transform 0.6s var(--ease);
+    }
+    .btn:hover { color: var(--bg); }
+    .btn:hover::before { transform: scaleX(1); transform-origin: left; }
+    .btn .arrow { transition: transform 0.5s var(--ease); }
+    .btn:hover .arrow { transform: translateX(6px); }
+    .btn-solid { background: var(--gold); color: var(--bg); }
+    .btn-solid::before { background: var(--text); }
+
+    /* ---------- Progress bar ---------- */
+    .progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; background: var(--gold);
+      transform-origin: left; transform: scaleX(0); z-index: 200; }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100; padding: 28px 0;
+      transition: padding 0.5s var(--ease), background 0.5s var(--ease), border-color 0.5s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled { padding: 16px 0; background: rgba(11, 11, 12, 0.82); backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+    .nav .container { display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--serif); font-size: 1.6rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 42px; list-style: none; }
+    .nav-links a { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+      position: relative; transition: color 0.3s; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 100%; height: 1px;
+      background: var(--gold); transform: scaleX(0); transition: transform 0.4s var(--ease); }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav .btn { padding: 12px 24px; }
+    .menu-toggle { display: none; background: none; border: 0; width: 32px; height: 20px; position: relative; cursor: pointer; }
+    .menu-toggle span { position: absolute; left: 0; width: 100%; height: 1px; background: var(--text); transition: 0.4s var(--ease); }
+    .menu-toggle span:nth-child(1) { top: 4px; }
+    .menu-toggle span:nth-child(2) { bottom: 4px; }
+    .menu-open .menu-toggle span:nth-child(1) { top: 50%; transform: rotate(45deg); }
+    .menu-open .menu-toggle span:nth-child(2) { bottom: auto; top: 50%; transform: rotate(-45deg); }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; height: 100vh; min-height: 680px; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-media { position: absolute; inset: -10% 0 0 0; z-index: 0; will-change: transform;
+      background: linear-gradient(135deg, #2a2520, #0b0b0c); }
+    .hero-media img { animation: heroZoom 14s var(--ease) forwards; transform: scale(1.18); }
+    @keyframes heroZoom { to { transform: scale(1); } }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, rgba(11,11,12,0.35) 0%, rgba(11,11,12,0.2) 40%, rgba(11,11,12,0.95) 100%); }
+    .hero-content { position: relative; z-index: 2; padding-bottom: clamp(60px, 12vh, 130px); width: 100%; }
+    .hero h1 { font-size: clamp(3rem, 9vw, 8.4rem); max-width: 1000px; margin: 22px 0 32px; }
+    .hero h1 .line { display: block; overflow: hidden; }
+    .hero h1 .line > span { display: block; transform: translateY(110%); animation: lineUp 1.4s var(--ease) forwards; }
+    .hero h1 .line:nth-child(2) > span { animation-delay: 0.15s; }
+    @keyframes lineUp { to { transform: translateY(0); } }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+    .hero .lead { color: #bdb7ad; }
+    .fade-in { opacity: 0; animation: fadeIn 1.2s var(--ease) forwards; }
+    .d1 { animation-delay: 0.5s; } .d2 { animation-delay: 0.7s; } .d3 { animation-delay: 0.9s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    .scroll-cue { position: absolute; right: var(--gutter); bottom: 40px; z-index: 2; display: flex; flex-direction: column;
+      align-items: center; gap: 14px; font-size: 0.64rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted);
+      writing-mode: vertical-rl; }
+    .scroll-cue::after { content: ""; width: 1px; height: 60px; background: linear-gradient(var(--gold), transparent);
+      animation: cue 2.2s ease-in-out infinite; transform-origin: top; }
+    @keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+    /* ---------- Reveal animations ---------- */
+    .reveal { opacity: 0; transform: translateY(50px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); }
+    .reveal.left { transform: translateX(-60px); }
+    .reveal.right { transform: translateX(60px); }
+    .reveal.scale { transform: scale(0.94); }
+    .reveal.in { opacity: 1; transform: none; }
+    .img-reveal { position: relative; overflow: hidden; }
+    .img-reveal::after { content: ""; position: absolute; inset: 0; background: var(--bg-3); transform-origin: right;
+      transition: transform 1.4s var(--ease); }
+    .img-reveal img { transform: scale(1.25); transition: transform 1.8s var(--ease); }
+    .img-reveal.in::after { transform: scaleX(0); }
+    .img-reveal.in img { transform: scale(1); }
+
+    section { padding: clamp(90px, 14vw, 180px) 0; position: relative; }
+
+    /* ---------- Stats ---------- */
+    .stats { padding: 0; border-bottom: 1px solid var(--line); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat { padding: 56px 24px; text-align: center; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: 0; }
+    .stat-num { font-family: var(--serif); font-size: clamp(2.6rem, 5vw, 4rem); color: var(--gold-soft); line-height: 1; }
+    .stat-label { font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+
+    /* ---------- Intro ---------- */
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; }
+    .intro-media { position: relative; aspect-ratio: 4 / 5; }
+    .intro-media .img-reveal { height: 100%; background: linear-gradient(160deg, #3a3129, #151515); }
+    .intro-badge { position: absolute; bottom: -40px; right: -40px; width: 170px; height: 170px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--gold); display: grid; place-items: center; text-align: center; z-index: 2; }
+    .intro-badge svg { position: absolute; inset: 0; animation: spin 24s linear infinite; }
+    .intro-badge strong { font-family: var(--serif); font-size: 2.6rem; font-weight: 300; color: var(--gold); line-height: 1; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .signature { font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--gold-soft); margin-top: 40px; }
+    .signature small { display: block; font-family: var(--sans); font-style: normal; font-size: 0.7rem;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+    /* ---------- Properties ---------- */
+    .properties { background: var(--bg-2); }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 70px; }
+    .prop-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 28px; }
+    .prop { grid-column: span 4; cursor: pointer; }
+    .prop.wide { grid-column: span 8; }
+    .prop-img { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: linear-gradient(160deg, #2c2722, #111); }
+    .prop.wide .prop-img { aspect-ratio: auto; height: 100%; min-height: 420px; }
+    .prop-img img { transition: transform 1.6s var(--ease), filter 1s; filter: brightness(0.85); }
+    .prop:hover .prop-img img { transform: scale(1.07); filter: brightness(1); }
+    .prop-tag { position: absolute; top: 20px; left: 20px; z-index: 2; padding: 7px 14px; font-size: 0.64rem;
+      letter-spacing: 0.24em; text-transform: uppercase; background: rgba(11,11,12,0.7); backdrop-filter: blur(8px);
+      border: 1px solid var(--line); }
+    .prop-overlay { position: absolute; inset: auto 0 0 0; padding: 28px; z-index: 2;
+      background: linear-gradient(transparent, rgba(11,11,12,0.92)); transform: translateY(20px); opacity: 0;
+      transition: 0.7s var(--ease); display: flex; gap: 22px; font-size: 0.78rem; color: #cfc9bf; }
+    .prop:hover .prop-overlay { transform: none; opacity: 1; }
+    .prop-info { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 22px; }
+    .prop-info h3 { font-size: 1.7rem; }
+    .prop-info p { font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .price { font-family: var(--serif); font-size: 1.4rem; color: var(--gold); white-space: nowrap; }
+    .prop.wide .prop-card { display: flex; flex-direction: column; height: 100%; }
+    .prop.wide .prop-img { flex: 1; }
+
+    /* ---------- Marquee ---------- */
+    .marquee { padding: 60px 0; border-block: 1px solid var(--line); overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; gap: 60px; will-change: transform; }
+    .marquee-track span { font-family: var(--serif); font-size: clamp(2.6rem, 7vw, 6rem); font-weight: 300;
+      color: transparent; -webkit-text-stroke: 1px rgba(201,169,110,0.5); display: inline-flex; align-items: center; gap: 60px; }
+    .marquee-track span::after { content: "✦"; -webkit-text-stroke: 0; color: var(--gold); font-size: 0.4em; }
+
+    /* ---------- Services ---------- */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin-top: 70px; }
+    .service { padding: 50px 40px 50px 0; border-right: 1px solid var(--line); position: relative; }
+    .service + .service { padding-left: 40px; }
+    .service:last-child { border-right: 0; }
+    .service::before { content: ""; position: absolute; top: -1px; left: 0; height: 1px; width: 100%;
+      background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.8s var(--ease); }
+    .service:hover::before { transform: scaleX(1); }
+    .service-num { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 1.1rem; }
+    .service h3 { font-size: 2rem; margin: 26px 0 16px; }
+    .service p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ---------- Parallax banner ---------- */
+    .banner { height: 80vh; min-height: 520px; overflow: hidden; display: grid; place-items: center; text-align: center; padding: 0; }
+    .banner-media { position: absolute; inset: -20% 0; will-change: transform; background: linear-gradient(135deg, #2b251f, #0b0b0c); }
+    .banner::after { content: ""; position: absolute; inset: 0; background: rgba(11,11,12,0.6); }
+    .banner-content { position: relative; z-index: 2; padding: 0 var(--gutter); }
+    .banner blockquote { font-family: var(--serif); font-size: clamp(2rem, 4.6vw, 3.8rem); font-weight: 300;
+      font-style: italic; max-width: 980px; line-height: 1.25; }
+    .banner cite { display: block; margin-top: 30px; font-style: normal; font-size: 0.72rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); }
+
+    /* ---------- Testimonials ---------- */
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 70px; }
+    .testi { padding: 44px 36px; background: var(--bg-2); border: 1px solid var(--line); transition: border-color 0.5s, transform 0.6s var(--ease); }
+    .testi:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-6px); }
+    .stars { color: var(--gold); letter-spacing: 6px; font-size: 0.8rem; }
+    .testi p { font-family: var(--serif); font-size: 1.35rem; line-height: 1.5; margin: 22px 0 30px; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-3); border: 1px solid var(--gold);
+      display: grid; place-items: center; font-family: var(--serif); color: var(--gold); }
+    .testi-author strong { font-weight: 500; font-size: 0.9rem; display: block; }
+    .testi-author span { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; }
+
+    /* ---------- Contact ---------- */
+    .contact { background: var(--bg-2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); }
+    .contact-details { margin-top: 50px; display: grid; gap: 28px; }
+    .contact-details div span { display: block; font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .contact-details div a, .contact-details div p { font-family: var(--serif); font-size: 1.5rem; }
+    form { display: grid; gap: 34px; }
+    .field { position: relative; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 14px 0;
+      color: var(--text); font-family: var(--sans); font-size: 1rem; font-weight: 300; outline: none; transition: border-color 0.4s;
+      border-radius: 0; appearance: none;
+    }
+    .field select option { background: var(--bg-2); }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .field label { position: absolute; left: 0; top: 14px; color: var(--muted); font-size: 0.95rem; pointer-events: none;
+      transition: 0.4s var(--ease); }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
+    .field input:focus + label, .field input:not(:placeholder-shown) + label,
+    .field textarea:focus + label, .field textarea:not(:placeholder-shown) + label,
+    .field select + label { top: -12px; font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+    .form-note { font-size: 0.85rem; color: var(--gold-soft); min-height: 1.4em; }
+
+    /* ---------- Footer ---------- */
+    footer { padding: 90px 0 40px; border-top: 1px solid var(--line); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 70px; }
+    .footer-top p { color: var(--muted); font-size: 0.9rem; max-width: 320px; margin-top: 20px; }
+    .footer-top h4 { font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 22px; }
+    .footer-top ul { list-style: none; display: grid; gap: 12px; }
+    .footer-top li a { color: var(--muted); font-size: 0.9rem; transition: color 0.3s; }
+    .footer-top li a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 30px;
+      border-top: 1px solid var(--line); font-size: 0.74rem; color: var(--muted); letter-spacing: 0.08em; }
+    .footer-giant { font-family: var(--serif); font-size: clamp(4rem, 17vw, 16rem); line-height: 0.85; text-align: center;
+      color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.07); letter-spacing: 0.05em; margin-bottom: 60px; user-select: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1024px) {
+      .prop, .prop.wide { grid-column: span 6; }
+      .prop.wide .prop-img { min-height: 0; aspect-ratio: 4 / 5; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .nav-links, .nav .btn { display: none; }
+      .menu-toggle { display: block; z-index: 101; }
+      .menu-open .nav-links {
+        display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--bg);
+        justify-content: center; align-items: center; gap: 34px; z-index: 100;
+      }
+      .menu-open .nav-links a { font-family: var(--serif); font-size: 2.2rem; letter-spacing: 0.04em; text-transform: none; color: var(--text); }
+      .intro-grid, .contact-grid { grid-template-columns: 1fr; }
+      .intro-badge { right: 16px; bottom: -40px; width: 130px; height: 130px; }
+      .intro-badge strong { font-size: 2rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .services-grid, .testi-grid { grid-template-columns: 1fr; }
+      .service, .service + .service { padding: 40px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .scroll-cue { display: none; }
+    }
+    @media (max-width: 600px) {
+      .prop, .prop.wide { grid-column: span 12; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .prop-overlay { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+      .reveal, .img-reveal img { opacity: 1; transform: none; }
+      .img-reveal::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="container">
+      <a href="#top" class="logo">Aure<span>l</span>ian</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#residences">Residences</a></li>
+        <li><a href="#about">Philosophy</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn">Private Viewing</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-media" data-parallax="0.35">
+      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=80" alt="Modern luxury villa with infinity pool at dusk" />
+    </div>
+    <div class="container hero-content">
+      <span class="eyebrow fade-in">Est. 1998 · Private Estates</span>
+      <h1>
+        <span class="line"><span>Where Legacy</span></span>
+        <span class="line"><span>Finds <em>Home</em></span></span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="lead fade-in d1">We curate an intimate collection of the world's most exceptional residences — each one chosen for its architecture, its setting and its soul.</p>
+        <a href="#residences" class="btn btn-solid fade-in d2">Explore Collection <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll</div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat reveal"><div class="stat-num" data-count="4.2" data-prefix="$" data-suffix="B" data-decimals="1">0</div><div class="stat-label">In Sales</div></div>
+      <div class="stat reveal" style="transition-delay:.1s"><div class="stat-num" data-count="380" data-suffix="+">0</div><div class="stat-label">Estates Sold</div></div>
+      <div class="stat reveal" style="transition-delay:.2s"><div class="stat-num" data-count="27">0</div><div class="stat-label">Years of Craft</div></div>
+      <div class="stat reveal" style="transition-delay:.3s"><div class="stat-num" data-count="14">0</div><div class="stat-label">Global Cities</div></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container intro-grid">
+      <div class="intro-media reveal left">
+        <div class="img-reveal" data-reveal-img>
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80" alt="Sunlit living room with designer furniture" loading="lazy" />
+        </div>
+        <div class="intro-badge">
+          <svg viewBox="0 0 170 170" aria-hidden="true">
+            <defs><path id="circle" d="M85,85 m-66,0 a66,66 0 1,1 132,0 a66,66 0 1,1 -132,0" /></defs>
+            <text font-size="10.5" letter-spacing="4.2" fill="#8f8a82" font-family="Manrope"><textPath href="#circle">DISCRETION · DISTINCTION · DEVOTION ·</textPath></text>
+          </svg>
+          <strong>27</strong>
+        </div>
+      </div>
+      <div class="reveal right">
+        <span class="eyebrow">Our Philosophy</span>
+        <h2>A home is not bought. It is <em>discovered.</em></h2>
+        <p class="lead">For nearly three decades, Aurelian has guided a discreet circle of clients to properties that rarely reach the open market. We believe the finest homes are defined not by square footage, but by light, proportion and the quiet feeling of arrival.</p>
+        <p class="lead" style="margin-top:18px">Every engagement is personal, private and led by a single dedicated advisor from first conversation to final key.</p>
+        <div class="signature">Isabelle Marchetti<small>Founder &amp; Principal</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Properties -->
+  <section class="properties" id="residences">
+    <div class="container">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Featured Residences</span>
+          <h2>The Current <em>Collection</em></h2>
+        </div>
+        <a href="#contact" class="btn reveal">View All Estates <span class="arrow">→</span></a>
+      </div>
+
+      <div class="prop-grid">
+        <article class="prop wide reveal">
+          <div class="prop-card">
+            <div class="prop-img">
+              <span class="prop-tag">Exclusive</span>
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=80" alt="Contemporary estate with glass walls and pool" loading="lazy" />
+              <div class="prop-overlay"><span>6 Beds</span><span>8 Baths</span><span>12,400 sq ft</span><span>2.1 Acres</span></div>
+            </div>
+            <div class="prop-info">
+              <div><h3>Villa Serenità</h3><p>Lake Como, Italy</p></div>
+              <div class="price">$28,500,000</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="prop reveal" style="transition-delay:.15s">
+          <div class="prop-img">
+            <span class="prop-tag">New</span>
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Minimalist penthouse interior" loading="lazy" />
+            <div class="prop-overlay"><span>4 Beds</span><span>5 Baths</span><span>6,800 sq ft</span></div>
+          </div>
+          <div class="prop-info">
+            <div><h3>The Meridian</h3><p>Manhattan, NY</p></div>
+            <div class="price">$19.8M</div>
+          </div>
+        </article>
+
+        <article class="prop reveal">
+          <div class="prop-img">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80" alt="White modern house with pool" loading="lazy" />
+            <div class="prop-overlay"><span>5 Beds</span><span>7 Baths</span><span>9,200 sq ft</span></div>
+          </div>
+          <div class="prop-info">
+            <div><h3>Casa Blanca</h3><p>Malibu, CA</p></div>
+            <div class="price">$34.0M</div>
+          </div>
+        </article>
+
+        <article class="prop reveal" style="transition-delay:.15s">
+          <div class="prop-img">
+            <span class="prop-tag">Off-Market</span>
+            <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1000&q=80" alt="Luxury home exterior at twilight" loading="lazy" />
+            <div class="prop-overlay"><span>7 Beds</span><span>9 Baths</span><span>14,000 sq ft</span></div>
+          </div>
+          <div class="prop-info">
+            <div><h3>Le Rocher</h3><p>Côte d'Azur, France</p></div>
+            <div class="price">$42.5M</div>
+          </div>
+        </article>
+
+        <article class="prop reveal" style="transition-delay:.3s">
+          <div class="prop-img">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=80" alt="Elegant kitchen with marble island" loading="lazy" />
+            <div class="prop-overlay"><span>3 Beds</span><span>4 Baths</span><span>5,100 sq ft</span></div>
+          </div>
+          <div class="prop-info">
+            <div><h3>Aspen Ridge</h3><p>Aspen, CO</p></div>
+            <div class="price">$16.2M</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span>Lake Como</span><span>Monaco</span><span>Malibu</span><span>St. Moritz</span><span>Manhattan</span><span>Dubai</span>
+      <span>Lake Como</span><span>Monaco</span><span>Malibu</span><span>St. Moritz</span><span>Manhattan</span><span>Dubai</span>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">What We Offer</span>
+        <h2>Service, <em>Elevated</em></h2>
+        <p class="lead">A complete, white-glove approach to acquiring, selling and living in extraordinary property.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service reveal">
+          <div class="service-num">01</div>
+          <h3>Private Acquisition</h3>
+          <p>Access to off-market estates through our global network of owners, architects and family offices.</p>
+        </div>
+        <div class="service reveal" style="transition-delay:.15s">
+          <div class="service-num">02</div>
+          <h3>Discreet Sales</h3>
+          <p>Bespoke marketing, cinematic storytelling and qualified-buyer introductions — never a public listing unless you wish.</p>
+        </div>
+        <div class="service reveal" style="transition-delay:.3s">
+          <div class="service-num">03</div>
+          <h3>Estate Concierge</h3>
+          <p>From interior curation to staff placement, we ensure your residence is ready the moment you arrive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parallax banner -->
+  <section class="banner">
+    <div class="banner-media" data-parallax="0.25">
+      <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=2400&q=80" alt="" loading="lazy" />
+    </div>
+    <div class="banner-content reveal scale">
+      <blockquote>“Architecture should speak of its time and place, but yearn for timelessness.”</blockquote>
+      <cite>— Frank Gehry</cite>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="stories">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Client Stories</span>
+        <h2>Trusted by the <em>Few</em></h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi reveal">
+          <div class="stars">★★★★★</div>
+          <p>“They found us a home we didn't know existed — and handled every detail with astonishing discretion.”</p>
+          <div class="testi-author"><div class="avatar">J</div><div><strong>James &amp; Elena R.</strong><span>Lake Como</span></div></div>
+        </div>
+        <div class="testi reveal" style="transition-delay:.15s">
+          <div class="stars">★★★★★</div>
+          <p>“Our estate sold privately in eleven days, above asking, without a single public photograph.”</p>
+          <div class="testi-author"><div class="avatar">M</div><div><strong>Marcus T.</strong><span>Malibu</span></div></div>
+        </div>
+        <div class="testi reveal" style="transition-delay:.3s">
+          <div class="stars">★★★★★</div>
+          <p>“The most refined real estate experience I've had in three continents. Truly in a class of its own.”</p>
+          <div class="testi-author"><div class="avatar">S</div><div><strong>Sofia L.</strong><span>Monaco</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="reveal left">
+        <span class="eyebrow">Begin the Conversation</span>
+        <h2>Arrange a <em>Private</em> Viewing</h2>
+        <p class="lead">Share a little about what you're looking for, and a senior advisor will be in touch within 24 hours.</p>
+        <div class="contact-details">
+          <div><span>Telephone</span><a href="tel:+10000000000">+1 (000) 000 0000</a></div>
+          <div><span>Email</span><a href="mailto:hello@example.com">hello@example.com</a></div>
+          <div><span>Atelier</span><p>New York · London · Monaco</p></div>
+        </div>
+      </div>
+      <form class="reveal right" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field"><input type="text" id="name" placeholder=" " required /><label for="name">Full Name</label></div>
+          <div class="field"><input type="email" id="email" placeholder=" " required /><label for="email">Email Address</label></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><input type="tel" id="phone" placeholder=" " /><label for="phone">Phone</label></div>
+          <div class="field">
+            <select id="budget">
+              <option>$5M – $10M</option><option>$10M – $25M</option><option>$25M – $50M</option><option>$50M+</option>
+            </select>
+            <label for="budget">Budget</label>
+          </div>
+        </div>
+        <div class="field"><textarea id="message" placeholder=" "></textarea><label for="message">Tell us about your ideal residence</label></div>
+        <div><button type="submit" class="btn btn-solid">Send Enquiry <span class="arrow">→</span></button></div>
+        <p class="form-note" id="formNote" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-giant">Aurelian</div>
+      <div class="footer-top">
+        <div>
+          <a href="#top" class="logo">Aure<span>l</span>ian</a>
+          <p>Curators of extraordinary homes for those who expect nothing less.</p>
+        </div>
+        <div><h4>Explore</h4><ul><li><a href="#residences">Residences</a></li><li><a href="#about">Philosophy</a></li><li><a href="#services">Services</a></li></ul></div>
+        <div><h4>Offices</h4><ul><li><a href="#contact">New York</a></li><li><a href="#contact">London</a></li><li><a href="#contact">Monaco</a></li></ul></div>
+        <div><h4>Follow</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Journal</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Aurelian Estates. All rights reserved.</span>
+        <span>Privacy · Terms</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const nav = document.getElementById("nav");
+      const progress = document.getElementById("progress");
+      const marquee = document.getElementById("marquee");
+      const parallaxEls = [...document.querySelectorAll("[data-parallax]")];
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Scroll-driven effects: nav state, progress bar, parallax, marquee
+      let marqueeX = 0, lastY = window.scrollY, ticking = false;
+      function onScroll() {
+        const y = window.scrollY;
+        nav.classList.toggle("scrolled", y > 60);
+        const max = document.documentElement.scrollHeight - innerHeight;
+        progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+        if (!reduceMotion) {
+          parallaxEls.forEach(el => {
+            const rect = el.parentElement.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > innerHeight) return;
+            const offset = (rect.top + rect.height / 2 - innerHeight / 2) * -parseFloat(el.dataset.parallax);
+            el.style.transform = `translate3d(0, ${offset}px, 0)`;
+          });
+        }
+        ticking = false;
+      }
+      window.addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
+      onScroll();
+
+      // Marquee: drifts constantly, speeds up with scroll velocity
+      if (!reduceMotion) {
+        (function loop() {
+          const velocity = Math.abs(window.scrollY - lastY);
+          lastY = window.scrollY;
+          marqueeX -= 0.6 + Math.min(velocity * 0.25, 12);
+          const half = marquee.scrollWidth / 2;
+          if (-marqueeX >= half) marqueeX += half;
+          marquee.style.transform = `translate3d(${marqueeX}px, 0, 0)`;
+          requestAnimationFrame(loop);
+        })();
+      }
+
+      // Reveal on scroll
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) reveal(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
+      const pending = new Set(document.querySelectorAll(".reveal"));
+      pending.forEach(el => io.observe(el));
+      function reveal(el) {
+        el.classList.add("in");
+        el.querySelectorAll("[data-reveal-img]").forEach(img => img.classList.add("in"));
+        el.querySelectorAll("[data-count]").forEach(countUp);
+        io.unobserve(el);
+        pending.delete(el);
+      }
+      // Fallback for fast jumps (anchor links, flick scrolls): reveal anything already scrolled past
+      function revealPassed() {
+        pending.forEach(el => { if (el.getBoundingClientRect().top < innerHeight) reveal(el); });
+      }
+      window.addEventListener("scroll", () => requestAnimationFrame(revealPassed), { passive: true });
+
+      // Animated counters
+      function countUp(el) {
+        const target = parseFloat(el.dataset.count);
+        const decimals = parseInt(el.dataset.decimals || "0", 10);
+        const prefix = el.dataset.prefix || "", suffix = el.dataset.suffix || "";
+        const render = v => prefix + v.toFixed(decimals) + suffix;
+        if (reduceMotion) { el.textContent = render(target); return; }
+        const duration = 2200, start = performance.now();
+        (function step(now) {
+          const t = Math.min((now - start) / duration, 1);
+          el.textContent = render(target * (1 - Math.pow(1 - t, 4)));
+          if (t < 1) requestAnimationFrame(step);
+        })(start);
+      }
+
+      // Mobile menu
+      const toggle = document.getElementById("menuToggle");
+      toggle.addEventListener("click", () => {
+        const open = document.body.classList.toggle("menu-open");
+        toggle.setAttribute("aria-expanded", open);
+        document.body.style.overflow = open ? "hidden" : "";
+      });
+      document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
+        toggle.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }));
+
+      // Demo form handling
+      document.getElementById("contactForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const form = e.target, note = document.getElementById("formNote");
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        if (!name || !/^\S+@\S+\.\S+$/.test(email)) {
+          note.textContent = "Please share your name and a valid email address.";
+          return;
+        }
+        note.textContent = `Thank you, ${name.split(" ")[0]}. An advisor will be in touch shortly.`;
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
