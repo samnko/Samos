@@ -1,3 +1,4 @@
+import { withBase } from "@/lib/paths";
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
@@ -7,7 +8,7 @@ import SectionHeading from "./SectionHeading";
 // Drop the portraits in public/images/founders/{salomon,ethan}.jpg; a monogram shows until then.
 const photo = (key: string) => {
   const rel = `/images/founders/${key}.jpg`;
-  return fs.existsSync(path.join(process.cwd(), "public", rel)) ? rel : null;
+  return fs.existsSync(path.join(process.cwd(), "public", rel)) ? withBase(rel) : null;
 };
 
 export default function Founders({ t }: { t: Dictionary["founders"] }) {

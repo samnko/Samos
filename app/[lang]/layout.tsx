@@ -14,6 +14,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Reveal from "@/components/Reveal";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import { withBase } from "@/lib/paths";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!isLocale(lang)) return {};
   const t = await getDictionary(lang);
   return {
+    // site.url already includes any base path, and Next resolves the relative URLs below against it
     metadataBase: new URL(site.url),
     title: { default: t.meta.title, template: `%s | ${site.name}` },
     description: t.meta.description,
@@ -73,7 +75,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!isLocale(lang)) notFound();
   const t = await getDictionary(lang);
   // The reversed logo is the first thing on screen (hero title, header over the video)
-  preload("/logo-on-dark.png", { as: "image", fetchPriority: "high" });
+  preload(withBase("/logo-on-dark.png"), { as: "image", fetchPriority: "high" });
   const fonts = [cormorant.variable, jost.variable, lang === "he" ? `${frank.variable} ${heebo.variable}` : ""].join(" ");
 
   return (
@@ -82,7 +84,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         {/* Runs before paint: enables reveal styles and, on the home page, the preloader lock */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(d){d.classList.add('js');if(/^\\/(fr|he|en)\\/?$/.test(location.pathname)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('is-loading')})(document.documentElement)`,
+            __html: `(function(d){d.classList.add('js');if(/\\/(fr|he|en)\\/?$/.test(location.pathname)&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('is-loading')})(document.documentElement)`,
           }}
         />
         <noscript>
