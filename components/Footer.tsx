@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { locales, localeMeta, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/fr";
 import { site, whatsappLink } from "@/lib/site";
+import { withBase } from "@/lib/paths";
 
 type Props = { lang: Locale; t: Dictionary["footer"]; nav: Dictionary["nav"]; logo: ReactNode };
 
@@ -21,7 +22,7 @@ export default function Footer({ lang, t, nav, logo }: Props) {
             <ul className="mt-6 space-y-3 text-ivory/75">
               {links.map((id) => (
                 <li key={id}>
-                  <a href={`/${lang}#${id}`} className="link-line">
+                  <a href={withBase(`/${lang}#${id}`)} className="link-line">
                     {nav[id]}
                   </a>
                 </li>
@@ -60,7 +61,7 @@ export default function Footer({ lang, t, nav, logo }: Props) {
             <ul className="mt-6 space-y-3 text-ivory/75">
               {locales.map((l) => (
                 <li key={l}>
-                  <a href={`/${l}`} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined} className="link-line aria-[current]:text-accent-soft">
+                  <a href={withBase(`/${l}`)} hrefLang={l} lang={l} aria-current={l === lang ? "true" : undefined} className="link-line aria-[current]:text-accent-soft">
                     {localeMeta[l].label}
                   </a>
                 </li>
@@ -74,7 +75,7 @@ export default function Footer({ lang, t, nav, logo }: Props) {
             © {new Date().getFullYear()} {site.name}. {t.rights}
           </p>
           <div className="flex items-center gap-8">
-            <a href={`/${lang}/mentions-legales`} className="link-line">
+            <a href={withBase(`/${lang}/mentions-legales`)} className="link-line">
               {t.legal}
             </a>
             <a href="#top" className="link-line">

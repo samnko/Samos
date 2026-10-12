@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/lib/i18n/fr";
 import { whatsappLink } from "@/lib/site";
+import { withBase } from "@/lib/paths";
 
 type Status = "idle" | "sending" | "success" | "fallback" | "error";
 const TYPES = ["buy", "rent", "airbnb"] as const;
@@ -30,7 +31,7 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
       .join("\n");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(withBase("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, type, lang }),
@@ -41,7 +42,9 @@ export default function ContactForm({ t, lang }: { t: Dictionary["contact"]["for
         return;
       }
       const body = await res.json().catch(() => ({}));
-      if (body.fallback) {
+      // No mail provider configured, or a static host without the API (e.g. GitHub Pages):
+      // hand the lead over to WhatsApp instead of failing. Only a validation error (422) is final.
+      if (body.fallback || res.status !== 422) {
         // No mail provider configured yet: hand the lead over to WhatsApp, pre-filled.
         setFallbackHref(whatsappLink(summary));
         setStatus("fallback");

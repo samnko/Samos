@@ -1,4 +1,5 @@
 "use client";
+import { withBase } from "@/lib/paths";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { gsap } from "gsap";
@@ -23,7 +24,7 @@ type FrameSet = { path: string; width: number; height: number };
 const COUNT = manifest.count;
 const SCENES = manifest.scenes;
 const pad = (n: number) => String(n).padStart(manifest.pad, "0");
-const frameUrl = (set: FrameSet, index: number) => `${set.path}/frame_${pad(index + 1)}.webp?v=${manifest.version}`;
+const frameUrl = (set: FrameSet, index: number) => `${withBase(set.path)}/frame_${pad(index + 1)}.webp?v=${manifest.version}`;
 
 // Poster for reduced motion / no-JS: the founders on the terrace (start of V6).
 const POSTER_INDEX = Math.min(COUNT - 1, SCENES[5] + 12);

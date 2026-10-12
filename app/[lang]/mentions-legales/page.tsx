@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n";
+import { withBase } from "@/lib/paths";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/mentions-legales">): Promise<Metadata> {
   const { lang } = await params;
@@ -34,7 +35,7 @@ export default async function Legal({ params }: PageProps<"/[lang]/mentions-lega
             </section>
           ))}
         </div>
-        <a href={`/${lang}`} className="btn btn-ink mt-16">
+        <a href={withBase(`/${lang}`)} className="btn btn-ink mt-16">
           <span aria-hidden="true" className="rtl:rotate-180">←</span> {t.legal.back}
         </a>
       </div>

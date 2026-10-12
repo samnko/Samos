@@ -1,3 +1,4 @@
+import { withBase } from "@/lib/paths";
 // Brand logo (assets/logo.png → public/logo.png). `onDark` uses the reversed version
 // (ivory lettering, red roof kept) generated for dark backgrounds.
 // Intrinsic ratio: 892 × 409.
@@ -7,7 +8,7 @@ export default function Logo({ onDark = false, size = "md", className = "", alt 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={onDark ? "/logo-on-dark.png" : "/logo.png"}
+      src={withBase(onDark ? "/logo-on-dark.png" : "/logo.png")}
       alt={alt}
       width={892}
       height={409}

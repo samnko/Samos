@@ -1,0 +1,58 @@
+# Static preview of the site on GitHub Pages: https://samnko.github.io/Samos/
+# The production target remains Vercel (language redirect + contact API); on Pages the
+# contact form falls back to WhatsApp.
+name: Deploy preview to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Enable GitHub Pages (Actions source) if needed
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - run: npm ci
+      - name: Build static site
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_BASE_PATH: /Samos
+          NEXT_PUBLIC_SITE_URL: https://samnko.github.io/Samos
+        run: |
+          # Server-only features are not available on a static host
+          rm -f proxy.ts
+          rm -rf app/api
+          npm run build
+          cp scripts/static-index.html out/index.html
+          touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

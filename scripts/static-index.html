@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cohen Real Estate</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="./fr/">
+<script>
+  // Static hosting has no server-side redirect: pick the visitor's language here.
+  (function () {
+    var langs = (navigator.languages || [navigator.language || "fr"]).map(function (l) { return l.slice(0, 2).toLowerCase(); });
+    var pick = "fr";
+    for (var i = 0; i < langs.length; i++) {
+      var l = langs[i] === "iw" ? "he" : langs[i];
+      if (l === "fr" || l === "he" || l === "en") { pick = l; break; }
+    }
+    location.replace("./" + pick + "/" + location.hash);
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=./fr/"></noscript>
+</head>
+<body style="background:#0b1733"></body>
+</html>

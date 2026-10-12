@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { locales, localeMeta, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/fr";
 import { getLenis, scrollToTarget } from "@/lib/lenis";
+import { withBase } from "@/lib/paths";
 
 type Props = { lang: Locale; t: Dictionary["nav"]; logo: ReactNode; logoOnDark: ReactNode };
 type Mode = "top" | "dark" | "light";
@@ -49,7 +50,7 @@ export default function Header({ lang, t, logo, logoOnDark }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const onHome = pathname === `/${lang}`;
+  const onHome = pathname.replace(/\/$/, "") === `/${lang}`;
   const go = (id: string) => (e: MouseEvent<HTMLAnchorElement>) => {
     setOpen(false);
     if (!onHome) return;
@@ -57,7 +58,8 @@ export default function Header({ lang, t, logo, logoOnDark }: Props) {
     window.setTimeout(() => scrollToTarget(id === "top" ? 0 : `#${id}`), open ? 350 : 0);
   };
 
-  const switchHref = (target: Locale) => pathname.replace(new RegExp(`^/${lang}(?=/|$)`), `/${target}`) || `/${target}`;
+  const switchHref = (target: Locale) =>
+    withBase(pathname.replace(new RegExp(`^/${lang}(?=/|$)`), `/${target}`) || `/${target}`);
 
   const light = mode === "light";
   const surface =
@@ -104,7 +106,7 @@ export default function Header({ lang, t, logo, logoOnDark }: Props) {
             <ul className="flex items-center gap-9 text-[0.74rem] uppercase tracking-[0.2em] rtl:text-[0.9rem] rtl:tracking-normal">
               {SECTIONS.map((id) => (
                 <li key={id}>
-                  <a href={`/${lang}#${id}`} onClick={go(id)} className="link-line pb-1 opacity-85 transition-opacity hover:opacity-100">
+                  <a href={withBase(`/${lang}#${id}`)} onClick={go(id)} className="link-line pb-1 opacity-85 transition-opacity hover:opacity-100">
                     {t[id]}
                   </a>
                 </li>
@@ -115,7 +117,7 @@ export default function Header({ lang, t, logo, logoOnDark }: Props) {
           <div className="relative z-10 flex items-center gap-5">
             <LanguageSwitcher lang={lang} label={t.language} hrefFor={switchHref} />
             <a
-              href={`/${lang}#contact`}
+              href={withBase(`/${lang}#contact`)}
               onClick={go("contact")}
               className={`btn hidden min-h-11 px-6 md:inline-flex ${light ? "btn-ink" : "btn-ghost-light"}`}
             >
@@ -149,7 +151,7 @@ export default function Header({ lang, t, logo, logoOnDark }: Props) {
             {SECTIONS.map((id, i) => (
               <li key={id} className="overflow-hidden">
                 <a
-                  href={`/${lang}#${id}`}
+                  href={withBase(`/${lang}#${id}`)}
                   onClick={go(id)}
                   className="display block text-[clamp(2.4rem,11vw,4rem)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   style={{
