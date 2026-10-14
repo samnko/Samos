@@ -1,0 +1,39 @@
+1:"$Sreact.fragment"
+2:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+7:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"ViewportBoundary"]
+8:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"MetadataBoundary"]
+6:X
+1e:X
+1e:C
+0:{"buildId":"MbbMZam9mgta9al2jawut","data":[{"rsc":["$","$1","c",{"children":[["$","main",null,{"id":"main","className":"bg-ivory pb-32 pt-44","children":["$","div",null,{"className":"container-luxe max-w-4xl","children":[["$","p",null,{"className":"eyebrow text-accent-deep","children":"Cohen Real Estate"}],["$","h1",null,{"className":"display mt-6 text-[clamp(2.8rem,6vw,5rem)]","children":"מידע משפטי"}],["$","div",null,{"className":"mt-16 divide-y divide-ink/10 border-y border-ink/10","children":[["$","section","מפעיל האתר",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"מפעיל האתר"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Cohen Real Estate, נתניה, ישראל. [יש להשלים: שם החברה, מספר ח.פ., כתובת מלאה ומספר רישיון תיווך.]"}]]}],["$","section","אחראים על התוכן",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"אחראים על התוכן"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"שלמה כהן ואיתן כהן."}]]}],["$","section","אחסון",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"אחסון"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, ארצות הברית."}]]}],["$","section","פרטיות",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"פרטיות"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"המידע הנשלח בטופס יצירת הקשר משמש אך ורק למענה על פנייתכם ואינו נמכר לצד שלישי. ניתן לבקש את מחיקתו בכל עת בפנייה אלינו."}]]}],["$","section","הנכסים המוצגים",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"הנכסים המוצגים"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"הנכסים, המחירים והשטחים המוצגים הם להמחשה בלבד ואינם מהווים הצעה מחייבת."}]]}]]}],["$","a",null,{"href":"/Samos/he","className":"btn btn-ink mt-16","children":[["$","span",null,{"aria-hidden":"true","className":"rtl:rotate-180","children":"←"}]," ","חזרה לדף הבית"]}]]}]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":"$@5","staleTime":"$6","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L7",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#0b1733"}]]}],["$","div",null,{"hidden":true,"children":["$","$L8",null,{"children":["$","$3",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"מידע משפטי | Cohen Real Estate"}],["$","meta","1",{"name":"description","content":"סוכנות נדל״ן יוקרתית בנתניה: קניית דירות, השכרה לטווח ארוך וניהול Airbnb מקצה לקצה. שלמה ואיתן כהן מלווים אתכם מא׳ ועד ת׳, בעברית, בצרפתית ובאנגלית."}],["$","meta","2",{"name":"application-name","content":"Cohen Real Estate"}],["$","meta","3",{"name":"author","content":"Salomon Cohen"}],["$","meta","4",{"name":"author","content":"Ethan Cohen"}],["$","meta","5",{"name":"keywords","content":"סוכנות נדל״ן נתניה,קניית דירה בנתניה,דירות להשכרה בנתניה,ניהול Airbnb נתניה,נדל״ן יוקרה נתניה,פנטהאוז בנתניה,השקעות נדל״ן בישראל,מתווך דובר צרפתית"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"geo.region","content":"IL-M"}],["$","meta","8",{"name":"geo.placename","content":"Netanya"}],["$","meta","9",{"name":"geo.position","content":"32.3215;34.8532"}],["$","link","10",{"rel":"canonical","href":"https://samnko.github.io/Samos/he/mentions-legales/"}],["$","link","11",{"rel":"alternate","hrefLang":"fr","href":"https://samnko.github.io/Samos/fr/mentions-legales/"}],["$","link","12",{"rel":"alternate","hrefLang":"he","href":"https://samnko.github.io/Samos/he/mentions-legales/"}],["$","link","13",{"rel":"alternate","hrefLang":"en","href":"https://samnko.github.io/Samos/en/mentions-legales/"}],["$","meta","14",{"property":"og:title","content":"Cohen Real Estate | סוכנות נדל״ן יוקרה בנתניה"}],"$L9","$La","$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13","$L14","$L15","$L16","$L17","$L18","$L19"]}]}]}],"$L1a"]}],"isPartial":"$@1b","staleTime":"$6","varyParams":null},{"rsc":"$L1c","isPartial":"$@1d","staleTime":"$6","varyParams":"$1e"}],"isUpgradeableISRFallback":false,"a":"$@1f","rootVaryParams":null,"needsRuntimeRequest":"$@20"}
+21:I[27201,["/Samos/_next/static/chunks/3fntmmi971322.js"],"IconMark"]
+22:I[39756,["/Samos/_next/static/chunks/3fntmmi971322.js"],"default"]
+23:I[37457,["/Samos/_next/static/chunks/3fntmmi971322.js"],"default"]
+4:null
+9:["$","meta","15",{"property":"og:description","content":"סוכנות נדל״ן יוקרתית בנתניה: קניית דירות, השכרה לטווח ארוך וניהול Airbnb מקצה לקצה. שלמה ואיתן כהן מלווים אתכם מא׳ ועד ת׳, בעברית, בצרפתית ובאנגלית."}]
+a:["$","meta","16",{"property":"og:url","content":"https://samnko.github.io/Samos/he/"}]
+b:["$","meta","17",{"property":"og:site_name","content":"Cohen Real Estate"}]
+c:["$","meta","18",{"property":"og:locale","content":"he_IL"}]
+d:["$","meta","19",{"property":"og:image","content":"https://samnko.github.io/Samos/og.jpg"}]
+e:["$","meta","20",{"property":"og:image:width","content":"1200"}]
+f:["$","meta","21",{"property":"og:image:height","content":"630"}]
+10:["$","meta","22",{"property":"og:image:alt","content":"שלמה ואיתן כהן על מרפסת פנטהאוז מול הים בנתניה"}]
+11:["$","meta","23",{"property":"og:locale:alternate","content":"fr_FR"}]
+12:["$","meta","24",{"property":"og:locale:alternate","content":"en_US"}]
+13:["$","meta","25",{"property":"og:type","content":"website"}]
+14:["$","meta","26",{"name":"twitter:card","content":"summary_large_image"}]
+15:["$","meta","27",{"name":"twitter:title","content":"Cohen Real Estate | סוכנות נדל״ן יוקרה בנתניה"}]
+16:["$","meta","28",{"name":"twitter:description","content":"סוכנות נדל״ן יוקרתית בנתניה: קניית דירות, השכרה לטווח ארוך וניהול Airbnb מקצה לקצה. שלמה ואיתן כהן מלווים אתכם מא׳ ועד ת׳, בעברית, בצרפתית ובאנגלית."}]
+17:["$","meta","29",{"name":"twitter:image","content":"https://samnko.github.io/Samos/og.jpg"}]
+18:["$","link","30",{"rel":"icon","href":"/Samos/icon.svg?icon.1jk8qp0uhyyfn.svg","sizes":"any","type":"image/svg+xml"}]
+19:["$","$L21","31",{}]
+1a:["$","meta",null,{"name":"next-size-adjust","content":""}]
+1c:["$","$1","c",{"children":[null,["$","$L22",null,{"parallelRouterKey":"children","template":["$","$L23",null,{}]}]]}]
+20:true
+6:300
+6:C
+1f:0
+1b:"$undefined"
+1d:"$undefined"
+5:"$undefined"

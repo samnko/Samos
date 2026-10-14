@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://samnko.github.io/Samos
+Sitemap: https://samnko.github.io/Samos/sitemap.xml

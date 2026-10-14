@@ -1,0 +1,9 @@
+{
+  "version": "1790177094",
+  "count": 689,
+  "fps": 16,
+  "pad": 4,
+  "desktop": { "path": "/frames/desktop", "width": 1600, "height": 902 },
+  "mobile":  { "path": "/frames/mobile",  "width": 900, "height": 1604 },
+  "scenes": [0,81,193,305,417,545]
+}

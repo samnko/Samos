@@ -1,0 +1,45 @@
+1:"$Sreact.fragment"
+2:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+7:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"ViewportBoundary"]
+8:I[97367,["/Samos/_next/static/chunks/3fntmmi971322.js"],"MetadataBoundary"]
+6:X
+24:X
+24:C
+0:{"buildId":"MbbMZam9mgta9al2jawut","data":[{"rsc":["$","$1","c",{"children":[["$","main",null,{"id":"main","className":"bg-ivory pb-32 pt-44","children":["$","div",null,{"className":"container-luxe max-w-4xl","children":[["$","p",null,{"className":"eyebrow text-accent-deep","children":"Cohen Real Estate"}],["$","h1",null,{"className":"display mt-6 text-[clamp(2.8rem,6vw,5rem)]","children":"Mentions légales"}],["$","div",null,{"className":"mt-16 divide-y divide-ink/10 border-y border-ink/10","children":[["$","section","Éditeur du site",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"Éditeur du site"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Cohen Real Estate, Netanya, Israël. [Raison sociale, numéro d'entreprise, adresse complète et numéro de licence d'agent immobilier à compléter.]"}]]}],["$","section","Responsables de la publication",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"Responsables de la publication"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Salomon Cohen et Ethan Cohen."}]]}],["$","section","Hébergement",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"Hébergement"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis."}]]}],["$","section","Données personnelles",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"Données personnelles"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Les informations transmises via le formulaire de contact sont utilisées uniquement pour répondre à votre demande et ne sont jamais revendues. Vous pouvez demander leur suppression à tout moment en nous écrivant."}]]}],["$","section","Biens présentés",{"className":"grid gap-4 py-10 md:grid-cols-[14rem_1fr] md:gap-10","children":[["$","h2",null,{"className":"font-serif text-2xl","children":"Biens présentés"}],["$","p",null,{"className":"leading-relaxed text-stone","children":"Les biens, prix et surfaces affichés sont donnés à titre indicatif et ne constituent pas une offre contractuelle."}]]}]]}],["$","a",null,{"href":"/Samos/fr","className":"btn btn-ink mt-16","children":[["$","span",null,{"aria-hidden":"true","className":"rtl:rotate-180","children":"←"}]," ","Retour à l'accueil"]}]]}]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":"$@5","staleTime":"$6","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L7",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#0b1733"}]]}],["$","div",null,{"hidden":true,"children":["$","$L8",null,{"children":["$","$3",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Mentions légales | Cohen Real Estate"}],["$","meta","1",{"name":"description","content":"Agence immobilière haut de gamme à Netanya : achat d'appartements, location longue durée et gestion Airbnb clé en main. Salomon & Ethan Cohen vous accompagnent de A à Z, en français, en hébreu et en anglais."}],["$","meta","2",{"name":"application-name","content":"Cohen Real Estate"}],["$","meta","3",{"name":"author","content":"Salomon Cohen"}],["$","meta","4",{"name":"author","content":"Ethan Cohen"}],["$","meta","5",{"name":"keywords","content":"agence immobilière Netanya,acheter appartement Netanya,location Netanya,gestion Airbnb Netanya,immobilier de luxe Netanya,penthouse Netanya,investissement immobilier Israël,agent immobilier francophone Israël"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"geo.region","content":"IL-M"}],["$","meta","8",{"name":"geo.placename","content":"Netanya"}],"$L9","$La","$Lb","$Lc","$Ld","$Le","$Lf","$L10","$L11","$L12","$L13","$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f"]}]}]}],"$L20"]}],"isPartial":"$@21","staleTime":"$6","varyParams":null},{"rsc":"$L22","isPartial":"$@23","staleTime":"$6","varyParams":"$24"}],"isUpgradeableISRFallback":false,"a":"$@25","rootVaryParams":null,"needsRuntimeRequest":"$@26"}
+27:I[27201,["/Samos/_next/static/chunks/3fntmmi971322.js"],"IconMark"]
+28:I[39756,["/Samos/_next/static/chunks/3fntmmi971322.js"],"default"]
+29:I[37457,["/Samos/_next/static/chunks/3fntmmi971322.js"],"default"]
+4:null
+9:["$","meta","9",{"name":"geo.position","content":"32.3215;34.8532"}]
+a:["$","link","10",{"rel":"canonical","href":"https://samnko.github.io/Samos/fr/mentions-legales/"}]
+b:["$","link","11",{"rel":"alternate","hrefLang":"fr","href":"https://samnko.github.io/Samos/fr/mentions-legales/"}]
+c:["$","link","12",{"rel":"alternate","hrefLang":"he","href":"https://samnko.github.io/Samos/he/mentions-legales/"}]
+d:["$","link","13",{"rel":"alternate","hrefLang":"en","href":"https://samnko.github.io/Samos/en/mentions-legales/"}]
+e:["$","meta","14",{"property":"og:title","content":"Cohen Real Estate | Agence immobilière de prestige à Netanya"}]
+f:["$","meta","15",{"property":"og:description","content":"Agence immobilière haut de gamme à Netanya : achat d'appartements, location longue durée et gestion Airbnb clé en main. Salomon & Ethan Cohen vous accompagnent de A à Z, en français, en hébreu et en anglais."}]
+10:["$","meta","16",{"property":"og:url","content":"https://samnko.github.io/Samos/fr/"}]
+11:["$","meta","17",{"property":"og:site_name","content":"Cohen Real Estate"}]
+12:["$","meta","18",{"property":"og:locale","content":"fr_FR"}]
+13:["$","meta","19",{"property":"og:image","content":"https://samnko.github.io/Samos/og.jpg"}]
+14:["$","meta","20",{"property":"og:image:width","content":"1200"}]
+15:["$","meta","21",{"property":"og:image:height","content":"630"}]
+16:["$","meta","22",{"property":"og:image:alt","content":"Salomon et Ethan Cohen sur la terrasse d'un penthouse face à la mer, à Netanya"}]
+17:["$","meta","23",{"property":"og:locale:alternate","content":"he_IL"}]
+18:["$","meta","24",{"property":"og:locale:alternate","content":"en_US"}]
+19:["$","meta","25",{"property":"og:type","content":"website"}]
+1a:["$","meta","26",{"name":"twitter:card","content":"summary_large_image"}]
+1b:["$","meta","27",{"name":"twitter:title","content":"Cohen Real Estate | Agence immobilière de prestige à Netanya"}]
+1c:["$","meta","28",{"name":"twitter:description","content":"Agence immobilière haut de gamme à Netanya : achat d'appartements, location longue durée et gestion Airbnb clé en main. Salomon & Ethan Cohen vous accompagnent de A à Z, en français, en hébreu et en anglais."}]
+1d:["$","meta","29",{"name":"twitter:image","content":"https://samnko.github.io/Samos/og.jpg"}]
+1e:["$","link","30",{"rel":"icon","href":"/Samos/icon.svg?icon.1jk8qp0uhyyfn.svg","sizes":"any","type":"image/svg+xml"}]
+1f:["$","$L27","31",{}]
+20:["$","meta",null,{"name":"next-size-adjust","content":""}]
+22:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+26:true
+6:300
+6:C
+25:0
+21:"$undefined"
+23:"$undefined"
+5:"$undefined"
